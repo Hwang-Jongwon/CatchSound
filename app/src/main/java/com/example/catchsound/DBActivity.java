@@ -1,11 +1,15 @@
 package com.example.catchsound;
 
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +27,8 @@ public class DBActivity extends AppCompatActivity {
     private RecyclerView RecyclerView_main;
 
     private long bbtn = 0L;
+
+
 
     Calendar cal = Calendar.getInstance();
 
@@ -77,6 +83,8 @@ public class DBActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+
     }
 
     private void updateLabel() {
@@ -94,5 +102,15 @@ public class DBActivity extends AppCompatActivity {
         floatingActionButton = findViewById(R.id.floatingActionButton);
         LoadRecentDB();
         setDB();
+
+
+
+
+
     }
+
+
+
+
+
 }

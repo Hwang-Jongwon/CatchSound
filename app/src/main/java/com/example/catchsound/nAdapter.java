@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +15,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
     Calendar cal = Calendar.getInstance();
@@ -27,6 +32,9 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
     private com.example.catchsound.DBHelper dbHelper;
 
     private ArrayList<com.example.catchsound.TodoItem> todoItems;
+
+
+
 
     public nAdapter(ArrayList<com.example.catchsound.TodoItem> todoItems, Context context) {
         this.todoItems = todoItems;
@@ -47,6 +55,7 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
         return paramInt;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item, parent, false));
     }
@@ -64,12 +73,36 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
         private TextView item_Date;
 
         private TextView item_Title;
+        private TextToSpeech tts;
 
+
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public ItemViewHolder(View itemView) {
+
             super(itemView);
+
             item_Title = itemView.findViewById(R.id.item_title);
             item_Content = itemView.findViewById(R.id.item_content);
             item_Date = itemView.findViewById(R.id.item_date);
+
+            tts = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int status) {
+
+
+                }
+            });
+
+            itemView.setOnClickListener(v -> {
+                Dialog dialog = new Dialog(context, android.R.style.Theme_Material_Light_Dialog);
+                dialog.setContentView(R.layout.activity_edit);
+
+                tts.setPitch((float) 0.8);
+                tts.setSpeechRate((float) 0.9);
+                tts.speak(item_Content.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,"id1");
+
+            });
+
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View param2View) {
                     int curPos = getAdapterPosition();
@@ -123,7 +156,9 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
                     builder.show();
                     return true;
                 }
+
             });
         }
+
     }
 }
