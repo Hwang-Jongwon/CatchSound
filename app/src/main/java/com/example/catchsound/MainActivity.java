@@ -19,7 +19,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), DBActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), DBActivity.class);
+                    startActivity(intent);
+            }
+        });
+
+        //발음 교정 액티비티로 이동
+        Button btn2 = findViewById(R.id.btn_pronounce);
+        btn2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PronounceActivity.class);
                 startActivity(intent);
             }
         });
