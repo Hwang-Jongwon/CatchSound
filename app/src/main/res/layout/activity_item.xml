@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/TextView_itemView"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -8,41 +9,31 @@
     android:background="@drawable/r_btn">
 
     <TextView
-        android:id="@+id/item_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16.0dip"
-        android:layout_marginTop="8.0dip"
-        android:text="title"
-        android:textColor="#ff000000"
-        android:textSize="34.0sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/item_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16.0dip"
-        android:layout_marginTop="8.0dip"
-        android:layout_marginBottom="8.0dip"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="content"
+        android:fontFamily="@font/nanum"
         android:textColor="#ff000000"
         android:textSize="24.0sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_title" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/item_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8.0dip"
-        android:layout_marginRight="16.0dip"
+        android:layout_marginEnd="88dp"
+        android:layout_marginRight="88dp"
         android:text="날짜"
         android:textColor="#ff000000"
-        android:textSize="18.0sp"
+        android:textSize="10.0sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_title" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

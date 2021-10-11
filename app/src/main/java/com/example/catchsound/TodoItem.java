@@ -23,10 +23,6 @@ public class TodoItem {
         return this.id;
     }
 
-    public String getTitle() {
-        return this.title;
-    }
-
     public void setContent(String paramString) {
         this.content = paramString;
     }
@@ -37,9 +33,5 @@ public class TodoItem {
 
     public void setId(int paramInt) {
         this.id = paramInt;
-    }
-
-    public void setTitle(String paramString) {
-        this.title = paramString;
     }
 }

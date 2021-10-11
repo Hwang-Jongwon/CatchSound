@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -28,7 +29,7 @@ public class DBActivity extends AppCompatActivity {
 
     private long bbtn = 0L;
 
-
+    Dialog custom_dialog;
 
     Calendar cal = Calendar.getInstance();
 
@@ -52,35 +53,31 @@ public class DBActivity extends AppCompatActivity {
     }
 
     private void setDB() {
-        getSupportActionBar().setTitle("");
         this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Dialog dialog = new Dialog(DBActivity.this, android.R.style.Theme_Material_Light_Dialog);
-                dialog.setContentView(R.layout.activity_edit);
-                EditText edittitle = dialog.findViewById(R.id.editTitle);
-                EditText editcontent = dialog.findViewById(R.id.editContent);
-                Button button_save = dialog.findViewById(R.id.button_save);
-                Button button_cancel = dialog.findViewById(R.id.button_cancel);
+                custom_dialog.setContentView(R.layout.custom_dialog);
+                EditText editcontent = custom_dialog.findViewById(R.id.editContent);
+                Button button_save = custom_dialog.findViewById(R.id.button_save);
+                Button button_cancel = custom_dialog.findViewById(R.id.button_cancel);
                 button_save.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         String curTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date());
-                        dbHelper.InsertTodo(edittitle.getText().toString(), editcontent.getText().toString(), curTime);
+                        dbHelper.InsertTodo(editcontent.getText().toString(), curTime);
                         com.example.catchsound.TodoItem todoItem = new com.example.catchsound.TodoItem();
-                        todoItem.setTitle(edittitle.getText().toString());
                         todoItem.setContent(editcontent.getText().toString());
                         todoItem.setDate(curTime);
                         itemAdapter.addItem(todoItem);
                         itemAdapter.notifyDataSetChanged();
                         RecyclerView_main.smoothScrollToPosition(0);
-                        dialog.dismiss();
+                        custom_dialog.dismiss();
                     }
                 });
                 button_cancel.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View param2View) {
-                        dialog.dismiss();
+                        custom_dialog.dismiss();
                     }
                 });
-                dialog.show();
+                custom_dialog.show();
             }
         });
 
@@ -95,22 +92,13 @@ public class DBActivity extends AppCompatActivity {
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_db);
-        getSupportActionBar().setElevation(0);
         dbHelper = new com.example.catchsound.DBHelper(this);
         todoItems = new ArrayList<com.example.catchsound.TodoItem>();
         RecyclerView_main = findViewById(R.id.RecyclerView_main);
         floatingActionButton = findViewById(R.id.floatingActionButton);
+        custom_dialog = new Dialog(DBActivity.this);
+        custom_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LoadRecentDB();
         setDB();
-
-
-
-
-
     }
-
-
-
-
-
 }

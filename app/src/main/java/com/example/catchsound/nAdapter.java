@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -62,7 +63,6 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        holder.item_Title.setText(todoItems.get(position).getTitle());
         holder.item_Content.setText(todoItems.get(position).getContent());
         holder.item_Date.setText(todoItems.get(position).getDate());
     }
@@ -72,7 +72,6 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
 
         private TextView item_Date;
 
-        private TextView item_Title;
         private TextToSpeech tts;
 
 
@@ -81,7 +80,6 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
 
             super(itemView);
 
-            item_Title = itemView.findViewById(R.id.item_title);
             item_Content = itemView.findViewById(R.id.item_content);
             item_Date = itemView.findViewById(R.id.item_date);
 
@@ -95,7 +93,7 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
 
             itemView.setOnClickListener(v -> {
                 Dialog dialog = new Dialog(context, android.R.style.Theme_Material_Light_Dialog);
-                dialog.setContentView(R.layout.activity_edit);
+                dialog.setContentView(R.layout.custom_dialog);
 
                 tts.setPitch((float) 0.8);
                 tts.setSpeechRate((float) 0.9);
@@ -115,23 +113,20 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int position) {
                             if (position == 0) {
-                                Dialog dialog = new Dialog(context, android.R.style.Theme_Material_Light_Dialog);
-                                dialog.setContentView(R.layout.activity_edit);
-                                EditText edittitle = dialog.findViewById(R.id.editTitle);
+                                Dialog dialog = new Dialog(context);
+                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                dialog.setContentView(R.layout.custom_dialog);
                                 EditText editcontent = dialog.findViewById(R.id.editContent);
-                                edittitle.setText(ctodoItem.getTitle());
                                 editcontent.setText(ctodoItem.getContent());
                                 Button btn_save = dialog.findViewById(R.id.button_save);
                                 Button btn_cancel = dialog.findViewById(R.id.button_cancel);
 
                                 btn_save.setOnClickListener(new View.OnClickListener() {
                                     public void onClick(View view) {
-                                        String title = edittitle.getText().toString();
                                         String content = editcontent.getText().toString();
                                         String curTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date());
                                         String beforeDate = ctodoItem.getDate();
-                                        dbHelper.UpdateTodo(title, content, curTime, beforeDate);
-                                        ctodoItem.setTitle(title);
+                                        dbHelper.UpdateTodo(content, curTime, beforeDate);
                                         ctodoItem.setContent(content);
                                         ctodoItem.setDate(curTime);
                                         notifyDataSetChanged();
