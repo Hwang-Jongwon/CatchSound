@@ -8,8 +8,10 @@ import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -17,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -39,6 +42,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class PronounceActivity extends AppCompatActivity {
 
@@ -47,11 +56,9 @@ public class PronounceActivity extends AppCompatActivity {
     private static final String accessKey = "6e40005e-26a1-44df-8032-8d73501924fb";
     private static int MICROPHONE_PERMISSION_CODE = 100;
 
-    Button buttonStart;
+    ImageButton buttonStart;
     TextView textResult;
-    Spinner spinnerMode;
 
-    String curMode;
     String result;
 
     int maxLenSpeech = 16000 * 45;
@@ -60,7 +67,7 @@ public class PronounceActivity extends AppCompatActivity {
     boolean isRecording = false;
     boolean forceStop = false;
 
-    private final Handler handler = new Handler() {
+    private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public synchronized void handleMessage(Message msg) {
             Bundle bd = msg.getData();
@@ -69,7 +76,6 @@ public class PronounceActivity extends AppCompatActivity {
                 //녹음 시작
                 case 1:
                     textResult.setText(v);
-                    buttonStart.setText("PUSH TO STOP");
                     break;
                 //녹음이 정상적으로 종료됨(버튼 눌렀거나, 시간 끝)
                 case 2:
@@ -79,19 +85,31 @@ public class PronounceActivity extends AppCompatActivity {
                 //녹음이 비정상적으로 종료됨(마이크 권한 필요 등등)
                 case 3:
                     textResult.setText(v);
-                    buttonStart.setText("PUSH TO START");
                     break;
                 //인식이 비정상적으로 종료됨
                 case 4:
                     textResult.setText(v);
                     buttonStart.setEnabled(true);
-                    buttonStart.setText("PUSH TO START");
                     break;
                 //인식이 정상적으로 종료됨
                 case 5:
-                    textResult.setText(StringEscapeUtils.unescapeJava(result));
+                    //인식된 문장, 점수 보여주기
+                    int recognized_idx = result.indexOf("recognized");
+                    int score_idx = result.indexOf("score");
+                    if (score_idx - recognized_idx == 16){
+                        textResult.setText("녹음이 되지 않았어요. 다시 시도해 주세요!");
+                    }
+                    else{
+                        String recognized = result.substring(recognized_idx + 13, score_idx - 3);
+                        String score = result.substring(score_idx + 7, score_idx + 12);
+                        Double double_score = (Double) Double.parseDouble(score);
+                        double_score = (Double) (Math.round(double_score*10)/10.0);
+                        score = Double.toString(double_score);
+                        textResult.setText("인식된 문장 : " + recognized + "\n" + "점수 : " + score);
+                    }
+
                     buttonStart.setEnabled(true);
-                    buttonStart.setText("PUSH TO START");
+                    //textResult.setText(result);
                     break;
             }
             super.handleMessage(msg);
@@ -117,26 +135,10 @@ public class PronounceActivity extends AppCompatActivity {
             getMicrophonePermission();
         }
 
-        buttonStart = (Button)this.findViewById(R.id.buttonStart);
+        buttonStart = (ImageButton)this.findViewById(R.id.buttonStart);
         textResult = (TextView)this.findViewById(R.id.textResult);
-        spinnerMode = (Spinner)this.findViewById(R.id.spinnerMode);
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-
-        ArrayList<String> modeArr = new ArrayList<>();
-        modeArr.add("한국어발음평가");
-        ArrayAdapter<String> modeAdapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, modeArr);
-        modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerMode.setAdapter(modeAdapter);
-        spinnerMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                curMode = parent.getItemAtPosition(pos).toString();
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-                curMode = "";
-            }
-        });
 
 
         buttonStart.setOnClickListener(new  View.OnClickListener() {
@@ -147,10 +149,10 @@ public class PronounceActivity extends AppCompatActivity {
                     try {
                         new Thread(new Runnable() {
                             public void run() {
-                                SendMessage("Recording...", 1);
+                                SendMessage("녹음 중..\n마이크를 한번 더 터치해 녹음을 멈추세요!", 1);
                                 try {
                                     recordSpeech();
-                                    SendMessage("Recognizing...", 2);
+                                    SendMessage("발음 분석중..", 2);
                                 } catch (RuntimeException e) {
                                     SendMessage(e.getMessage(), 3);
                                     return;
@@ -260,15 +262,8 @@ public class PronounceActivity extends AppCompatActivity {
         String audioContents;
 
         Gson gson = new Gson();
-
-        switch (curMode) {
-            case "한국어발음평가":
-                languageCode = "korean";
-                openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/PronunciationKor";
-                break;
-            default:
-                return "ERROR: invalid mode";
-        }
+        languageCode = "korean";
+        openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/PronunciationKor";
 
         Map<String, Object> request = new HashMap<>();
         Map<String, String> argument = new HashMap<>();
