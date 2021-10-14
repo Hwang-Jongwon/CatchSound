@@ -85,10 +85,10 @@ public class DBActivity extends AppCompatActivity {
     }
 
     private void updateLabel() {
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.KOREA);
         this.edittill.setText(simpleDateFormat.format(this.cal.getTime()));
     }
-
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_db);
