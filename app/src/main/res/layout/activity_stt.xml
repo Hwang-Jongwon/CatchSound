@@ -11,16 +11,20 @@
     <TextView
         android:id="@+id/sttResult"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="7"
         android:background="@color/white"
-        android:text="안녕하세요. 저는 청각장애가 있습니다. 버튼을 누르시고 핸드폰에 말해주시면 글로 볼 수 있습니다" />
+        android:gravity="center"
+        android:text="안녕하세요. 저는 청각장애가 있습니다. 버튼을 누르시고 핸드폰에 말해주시면 글로 볼 수 있습니다"
+        android:textColor="@color/black"
+        android:textSize="30dp" />
 
     <Button
         android:id="@+id/sttStart"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:text="음성인식 시작" />
+
 
 </LinearLayout>

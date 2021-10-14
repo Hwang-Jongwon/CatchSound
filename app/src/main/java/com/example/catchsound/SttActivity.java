@@ -25,7 +25,7 @@ public class SttActivity extends AppCompatActivity {
     Button sttBtn; TextView textView;
     final int PERMISSION = 1;
 
-    @RequiresApi(api = Build.VERSION_CODES.FROYO)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
