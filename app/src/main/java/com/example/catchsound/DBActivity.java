@@ -27,15 +27,9 @@ public class DBActivity extends AppCompatActivity {
 
     private RecyclerView RecyclerView_main;
 
-    private long bbtn = 0L;
-
     Dialog custom_dialog;
 
-    Calendar cal = Calendar.getInstance();
-
     private com.example.catchsound.DBHelper dbHelper;
-
-    EditText edittill;
 
     private FloatingActionButton floatingActionButton;
 
@@ -80,17 +74,10 @@ public class DBActivity extends AppCompatActivity {
                 custom_dialog.show();
             }
         });
-
-
     }
 
-    private void updateLabel() {
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.KOREA);
-        this.edittill.setText(simpleDateFormat.format(this.cal.getTime()));
-    }
-    protected void onCreate(Bundle paramBundle) {
-        super.onCreate(paramBundle);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
         dbHelper = new com.example.catchsound.DBHelper(this);
         todoItems = new ArrayList<com.example.catchsound.TodoItem>();
