@@ -14,6 +14,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -135,6 +137,9 @@ public class PronounceActivity extends AppCompatActivity {
 
         buttonStart = (ImageButton)this.findViewById(R.id.buttonStart);
         textResult = (TextView)this.findViewById(R.id.textResult);
+
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.alpha);
+        textResult.startAnimation(animation);
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 

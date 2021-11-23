@@ -24,13 +24,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //발음 교정 액티비티로 이동
+        //발음 교정 카테고리 액티비티로 이동
         Button btn2 = findViewById(R.id.btn_pronounce);
         btn2.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PronounceActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PronounceCategoryActivity.class);
                 startActivity(intent);
             }
         });

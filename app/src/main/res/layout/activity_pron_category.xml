@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories"
+            android:textSize="36sp"
+            android:fontFamily="@font/archivo_bold"
+            android:padding="10dp"
+            android:textAllCaps="true"/>
+
+        <!-- 인사하기 카테고리 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_greeting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#00ff0000"
+            app:cardElevation="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/bg_category">
+
+                <ImageView
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/waving_hand"
+                    android:layout_marginLeft="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:fontFamily="@font/archivo_bold"
+                    android:padding="25dp"
+                    android:text="인사하기"
+                    android:textSize="30sp" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <!-- 날씨 표현하기 카테고리 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_weather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#00ff0000"
+            app:cardElevation="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+
+                android:background="@drawable/bg_category">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/weather"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="날씨 표현하기"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/archivo_bold"
+                    android:padding="25dp"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <!-- 감정 표현하기 카테고리 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_emotion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#00ff0000"
+            app:cardElevation="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+
+                android:background="@drawable/bg_category">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/emotion"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="감정 표현하기"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/archivo_bold"
+                    android:padding="25dp"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <!-- 맛 표현하기 카테고리 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_flavor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#00ff0000"
+            app:cardElevation="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+
+                android:background="@drawable/bg_category">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/flavor"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="맛 표현하기"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/archivo_bold"
+                    android:padding="25dp"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <!-- 음식 주문하기 카테고리 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_orderfood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#00ff0000"
+            app:cardElevation="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+
+                android:background="@drawable/bg_category">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/orderfood"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="음식 주문하기"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/archivo_bold"
+                    android:padding="25dp"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <!-- 쇼핑하기 카테고리 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_shopping"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#00ff0000"
+            app:cardElevation="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+
+                android:background="@drawable/bg_category">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/shopping"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="쇼핑하기"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/archivo_bold"
+                    android:padding="25dp"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <!-- 대중교통 이용하기 카테고리 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_publictransport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#00ff0000"
+            app:cardElevation="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+
+                android:background="@drawable/bg_category">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/busstop"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+
+                    android:fontFamily="@font/archivo_bold"
+                    android:padding="25dp"
+                    android:text="대중교통\n이용하기"
+                    android:textSize="30sp" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+
+</ScrollView>
