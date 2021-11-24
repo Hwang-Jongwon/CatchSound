@@ -30,6 +30,7 @@ public class SttActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stt);
+        getSupportActionBar().setElevation(0);
 
         if ( Build.VERSION.SDK_INT >= 23 ){
             // 퍼미션 체크

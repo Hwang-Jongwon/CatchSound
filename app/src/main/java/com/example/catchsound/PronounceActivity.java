@@ -129,6 +129,7 @@ public class PronounceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pron);
+        getSupportActionBar().setElevation(0);
 
         //마이크 권한 요청
         if (isMicrophonePresent()){

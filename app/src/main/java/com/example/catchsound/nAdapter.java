@@ -34,9 +34,6 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
 
     private ArrayList<com.example.catchsound.TodoItem> todoItems;
 
-
-
-
     public nAdapter(ArrayList<com.example.catchsound.TodoItem> todoItems, Context context) {
         this.todoItems = todoItems;
         this.context = context;

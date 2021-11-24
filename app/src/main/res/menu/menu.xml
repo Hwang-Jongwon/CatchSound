@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/searchView"
+        android:icon="@drawable/search"
+        android:title="@string/keyword"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu1"
+        android:title="날짜별로"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu2"
+        android:title="내용별로"
+        app:showAsAction="never"/>
+
+</menu>
