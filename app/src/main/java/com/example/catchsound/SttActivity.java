@@ -2,7 +2,12 @@ package com.example.catchsound;
 
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
@@ -10,9 +15,11 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +35,9 @@ import java.util.Locale;
 
 public class SttActivity extends AppCompatActivity {
 
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+
     Intent intent;
     SpeechRecognizer mRecognizer;
     Button sttBtn; TextView textView;
@@ -39,6 +49,9 @@ public class SttActivity extends AppCompatActivity {
 
     FloatingActionButton change1;
 
+    Button voice_set;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,13 +62,19 @@ public class SttActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET,
                     Manifest.permission.RECORD_AUDIO},PERMISSION); }
 
-        textView = (TextView)findViewById(R.id.sttResult);
+        pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        editor = pref.edit();
+
+        String guide = pref.getString("guide", "안녕하세요. 저는 청각장애가 있습니다. 버튼을 누르시고 핸드폰에 말해주시면 글로 볼 수 있습니다");
+
+        textView = (TextView) findViewById(R.id.sttResult);
+        textView.setText(guide);
         sttBtn = (Button) findViewById(R.id.sttStart);
 
         fab_plus=(FloatingActionButton)findViewById(R.id.plus);
         fab_minus=(FloatingActionButton)findViewById(R.id.minus);
 
-
+        voice_set=(Button)findViewById(R.id.voice_set);
 
 
 
@@ -63,9 +82,11 @@ public class SttActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,getPackageName());
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"ko-KR");
 
+
         sttBtn.setOnClickListener(v -> {
             mRecognizer=SpeechRecognizer.createSpeechRecognizer(this);
-            mRecognizer.setRecognitionListener(listener); mRecognizer.startListening(intent);
+            mRecognizer.setRecognitionListener(listener);
+            mRecognizer.startListening(intent);
         });
 
         fab_plus.setOnClickListener(v -> {
@@ -93,7 +114,51 @@ public class SttActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        voice_set.setOnClickListener(v -> {
+            final PopupMenu popupMenu = new PopupMenu(getApplicationContext(),v);
+            getMenuInflater().inflate(R.menu.setting, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                   if(item.getItemId()== R.id.set_message)
+                   {
+                       AlertDialog.Builder dlg = new AlertDialog.Builder(SttActivity.this);
+                       dlg.setTitle("기본메세지 변경");
+                       EditText et = new EditText(SttActivity.this);
+                       et.setText(guide);
+                       dlg.setView(et);
 
+                       dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+
+                           }
+                       });
+
+                       dlg.setPositiveButton("설정", new DialogInterface.OnClickListener() {
+
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               editor.putString("guide", et.getText().toString());
+                               editor.apply();
+                               Toast.makeText(getApplicationContext(), "변경 완료", Toast.LENGTH_SHORT).show();
+                               Intent intent = getIntent();
+                               finish();
+                               startActivity(intent);
+                           }
+                       });
+
+
+                       dlg.show();
+                   }
+
+
+
+                    return false;
+                }
+            });
+            popupMenu.show();
+        });
 
     }
 

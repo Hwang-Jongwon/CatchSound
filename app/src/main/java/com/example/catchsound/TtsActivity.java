@@ -54,8 +54,9 @@ public class TtsActivity extends Activity implements TextToSpeech.OnInitListener
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void speakOut() {
         CharSequence text = txtText.getText();
-        tts.setPitch((float) 0.8);
+        tts.setPitch((float) 0.7);
         tts.setSpeechRate((float) 0.9);
+
         tts.speak(text,TextToSpeech.QUEUE_FLUSH,null,"id1");
     }
 

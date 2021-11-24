@@ -22,7 +22,6 @@ public class PronounceCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pron_category);
-        getSupportActionBar().setElevation(0);
 
         //인사 카테고리 클릭
         card_greeting = findViewById(R.id.card_greeting);

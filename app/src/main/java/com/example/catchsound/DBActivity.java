@@ -89,7 +89,6 @@ public class DBActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
-        getSupportActionBar().setElevation(0);
         dbHelper = new com.example.catchsound.DBHelper(this);
         todoItems = new ArrayList<com.example.catchsound.TodoItem>();
         RecyclerView_main = findViewById(R.id.RecyclerView_main);
