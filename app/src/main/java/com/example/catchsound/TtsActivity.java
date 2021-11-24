@@ -1,15 +1,20 @@
 package com.example.catchsound;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.RequiresApi;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Locale;
 
@@ -18,6 +23,7 @@ public class TtsActivity extends Activity implements TextToSpeech.OnInitListener
     private TextToSpeech tts;
     private Button btn_Speak;
     private EditText txtText;
+    private FloatingActionButton change2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,7 @@ public class TtsActivity extends Activity implements TextToSpeech.OnInitListener
         tts = new TextToSpeech(this, this);
         btn_Speak = findViewById(R.id.btnSpeak);
         txtText = findViewById(R.id.txtText);
+        change2 = findViewById(R.id.change2);
 
         btn_Speak.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -35,6 +42,13 @@ public class TtsActivity extends Activity implements TextToSpeech.OnInitListener
                 speakOut();
             }
         });
+
+        change2.setOnClickListener(v -> {
+            Intent intent= new Intent(TtsActivity.this, SttActivity.class);
+            startActivity(intent);
+
+        });
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

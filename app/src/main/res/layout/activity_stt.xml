@@ -8,23 +8,101 @@
     android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/sttResult"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"
-        android:background="@color/white"
-        android:gravity="center"
-        android:text="안녕하세요. 저는 청각장애가 있습니다. 버튼을 누르시고 핸드폰에 말해주시면 글로 볼 수 있습니다"
-        android:textColor="@color/black"
-        android:textSize="30dp" />
+        android:orientation="vertical"
+        >
 
-    <Button
-        android:id="@+id/sttStart"
+        <TextView
+            android:id="@+id/sttResult"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="안녕하세요. 저는 청각장애가 있습니다. 버튼을 누르시고 핸드폰에 말해주시면 글로 볼 수 있습니다"
+            android:textColor="@color/black"
+            android:textSize="30dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/white"
+
+            android:outlineAmbientShadowColor="@color/white"
+            android:src="@drawable/ic_baseline_zoom_in_24"
+            android:layout_marginBottom="80dp"
+            app:maxImageSize="35dp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:backgroundTint="@color/white"
+            android:outlineAmbientShadowColor="@color/white"
+            android:src="@drawable/ic_baseline_zoom_out_24"
+            android:layout_margin="10dp"
+            app:maxImageSize="35dp"/>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/change1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:src="@drawable/ic_baseline_keyboard_24"
+            app:backgroundTint="#ffff80"
+            android:layout_margin="10dp"
+            app:maxImageSize="35dp"/>
+
+
+
+            app:maxImageSize="35dp"/>
+    </FrameLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="음성인식 시작" />
+        android:gravity="center_horizontal"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/sttStart"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="10"
+            android:backgroundTint="#ffff80"
+            android:layout_marginLeft="80dp"
+            android:textColor="#000000"
+            android:text="누르고 말하세요" />
+
+        <Button
+            android:id="@+id/voice_set"
+            android:layout_width="38dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+
+            android:drawableLeft="@drawable/ic_baseline_more_vert_24"
+
+            >
+
+        </Button>
+
+
+
+
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>

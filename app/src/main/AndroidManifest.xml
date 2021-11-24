@@ -45,7 +45,8 @@
         </activity>
         <activity
             android:name=".TtsActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="stateVisible">
         </activity>
     </application>
 
