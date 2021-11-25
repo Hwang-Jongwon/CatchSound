@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -129,6 +130,8 @@ public class PronounceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pron);
+        ActionBar ab = getSupportActionBar() ;
+        ab.hide();
 
         //마이크 권한 요청
         if (isMicrophonePresent()){

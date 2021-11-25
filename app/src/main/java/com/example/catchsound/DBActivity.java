@@ -2,6 +2,7 @@ package com.example.catchsound;
 
 import android.app.Dialog;
 import android.app.SearchManager;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -12,10 +13,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +48,7 @@ public class DBActivity extends AppCompatActivity {
     private ArrayList<com.example.catchsound.TodoItem> todoItems;
 
     private void LoadRecentDB() {
-        todoItems = dbHelper.getTodoList();
+        todoItems = dbHelper.getNameList();
         if (itemAdapter == null) {
             itemAdapter = new com.example.catchsound.nAdapter(todoItems, this);
             RecyclerView_main.setHasFixedSize(true);
@@ -63,9 +66,10 @@ public class DBActivity extends AppCompatActivity {
                 button_save.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         String curTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date());
-                        dbHelper.InsertTodo(editcontent.getText().toString(), curTime);
+                        dbHelper.InsertTodo(editcontent.getText().toString(), curTime, "1");
                         com.example.catchsound.TodoItem todoItem = new com.example.catchsound.TodoItem();
                         todoItem.setContent(editcontent.getText().toString());
+                        todoItem.setFlag("1");
                         todoItem.setDate(curTime);
                         itemAdapter.addItem(todoItem);
                         itemAdapter.notifyDataSetChanged();
@@ -89,6 +93,10 @@ public class DBActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
+        ActionBar ab = getSupportActionBar() ;
+        ab.setTitle("");
+        ab.setElevation(0);
+
         dbHelper = new com.example.catchsound.DBHelper(this);
         todoItems = new ArrayList<com.example.catchsound.TodoItem>();
         RecyclerView_main = findViewById(R.id.RecyclerView_main);
@@ -134,6 +142,13 @@ public class DBActivity extends AppCompatActivity {
 
             case R.id.menu2:
                 todoItems = dbHelper.getNameList();
+                itemAdapter = new com.example.catchsound.nAdapter(todoItems, this);
+                RecyclerView_main.setHasFixedSize(true);
+                RecyclerView_main.setAdapter(itemAdapter);
+                break;
+
+            case R.id.menu3:
+                todoItems = dbHelper.getStarList();
                 itemAdapter = new com.example.catchsound.nAdapter(todoItems, this);
                 RecyclerView_main.setHasFixedSize(true);
                 RecyclerView_main.setAdapter(itemAdapter);

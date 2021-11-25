@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Dimension;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -56,6 +57,8 @@ public class SttActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stt);
+        ActionBar ab = getSupportActionBar() ;
+        ab.hide();
 
         if ( Build.VERSION.SDK_INT >= 23 ){
             // 퍼미션 체크

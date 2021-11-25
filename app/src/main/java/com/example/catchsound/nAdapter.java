@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -62,6 +64,10 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.item_Content.setText(todoItems.get(position).getContent());
         holder.item_Date.setText(todoItems.get(position).getDate());
+        holder.flag = todoItems.get(position).getFlag();
+
+        if(holder.flag == "0") holder.item_Star.setBackgroundResource(R.drawable.star_empty);
+        else holder.item_Star.setBackgroundResource(R.drawable.star_full);
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -69,7 +75,11 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
 
         private TextView item_Date;
 
+        private ImageView item_Star;
+
         private TextToSpeech tts;
+
+        private String flag;
 
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -79,12 +89,50 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
 
             item_Content = itemView.findViewById(R.id.item_content);
             item_Date = itemView.findViewById(R.id.item_date);
+            item_Star = itemView.findViewById(R.id.star);
+            flag = itemView.findViewById(R.id.flag).toString();
 
             tts = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
                 @Override
                 public void onInit(int status) {
 
 
+                }
+            });
+
+            item_Star.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int curPos = getAdapterPosition();
+                    com.example.catchsound.TodoItem ctodoItem = todoItems.get(curPos);
+                    //v.setSelected(!v.isSelected());
+                    flag = ctodoItem.getFlag();
+                    String editcontent = item_Content.getText().toString();
+
+                    if(flag == "0"){
+                        flag = "1";
+                        item_Star.setBackgroundResource(R.drawable.star_full);
+                        String content = editcontent;
+                        String curTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date());
+                        String beforeDate = ctodoItem.getDate();
+                        dbHelper.UpdateTodo(content, curTime, beforeDate, flag);
+                        ctodoItem.setFlag(flag);
+                        ctodoItem.setContent(content);
+                        ctodoItem.setDate(curTime);
+                        notifyDataSetChanged();
+                    }
+                    else{
+                        flag = "0";
+                        item_Star.setBackgroundResource(R.drawable.star_empty);
+                        String content = editcontent;
+                        String curTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date());
+                        String beforeDate = ctodoItem.getDate();
+                        dbHelper.UpdateTodo(content, curTime, beforeDate, flag);
+                        ctodoItem.setFlag(flag);
+                        ctodoItem.setContent(content);
+                        ctodoItem.setDate(curTime);
+                        notifyDataSetChanged();
+                    }
                 }
             });
 
@@ -123,7 +171,9 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
                                         String content = editcontent.getText().toString();
                                         String curTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date());
                                         String beforeDate = ctodoItem.getDate();
-                                        dbHelper.UpdateTodo(content, curTime, beforeDate);
+                                        String flag = ctodoItem.getFlag();
+                                        dbHelper.UpdateTodo(content, curTime, beforeDate, flag);
+                                        ctodoItem.setFlag(flag);
                                         ctodoItem.setContent(content);
                                         ctodoItem.setDate(curTime);
                                         notifyDataSetChanged();

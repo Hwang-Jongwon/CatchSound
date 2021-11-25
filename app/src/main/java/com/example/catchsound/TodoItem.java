@@ -1,5 +1,7 @@
 package com.example.catchsound;
 
+import android.widget.ImageView;
+
 public class TodoItem {
     private String content;
 
@@ -7,9 +9,15 @@ public class TodoItem {
 
     private int id;
 
-    private String till;
+    private String flag;
 
-    private String title;
+    public String getFlag() {
+        return this.flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
 
     public String getContent() {
         return this.content;

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -22,6 +23,8 @@ public class PronounceCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pron_category);
+        ActionBar ab = getSupportActionBar() ;
+        ab.hide();
 
         //인사 카테고리 클릭
         card_greeting = findViewById(R.id.card_greeting);
