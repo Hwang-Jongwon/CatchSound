@@ -1,7 +1,5 @@
 package com.example.catchsound;
 
-import android.widget.ImageView;
-
 public class TodoItem {
     private String content;
 
@@ -10,6 +8,28 @@ public class TodoItem {
     private int id;
 
     private String flag;
+
+    private int star;
+
+    private String tag;
+
+    private String use;
+
+    public String getUse() {
+        return this.use;
+    }
+
+    public void setUse(String use) {
+        this.use = use;
+    }
+
+    public String getTag() {
+        return this.tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
     public String getFlag() {
         return this.flag;
@@ -41,5 +61,13 @@ public class TodoItem {
 
     public void setId(int paramInt) {
         this.id = paramInt;
+    }
+
+    public int getStar() {
+        return this.star;
+    }
+
+    public void setStar(int star) {
+        this.star = star;
     }
 }

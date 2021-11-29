@@ -11,7 +11,7 @@
 
     <item
         android:id="@+id/menu1"
-        android:title="날짜별로"
+        android:title="태그별로"
         app:showAsAction="never"/>
 
     <item
@@ -22,6 +22,11 @@
     <item
         android:id="@+id/menu3"
         android:title="북마크"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu4"
+        android:title="사용 횟수"
         app:showAsAction="never"/>
 
 </menu>

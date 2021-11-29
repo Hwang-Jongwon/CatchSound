@@ -61,16 +61,20 @@ public class DBActivity extends AppCompatActivity {
             public void onClick(View view) {
                 custom_dialog.setContentView(R.layout.custom_dialog);
                 EditText editcontent = custom_dialog.findViewById(R.id.editContent);
+                EditText edittag = custom_dialog.findViewById(R.id.editTag);
                 Button button_save = custom_dialog.findViewById(R.id.button_save);
                 Button button_cancel = custom_dialog.findViewById(R.id.button_cancel);
                 button_save.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         String curTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date());
-                        dbHelper.InsertTodo(editcontent.getText().toString(), curTime, "1");
+                        dbHelper.InsertTodo(editcontent.getText().toString(), curTime, "1", R.drawable.star_full, edittag.getText().toString(), "0");
                         com.example.catchsound.TodoItem todoItem = new com.example.catchsound.TodoItem();
                         todoItem.setContent(editcontent.getText().toString());
                         todoItem.setFlag("1");
+                        todoItem.setStar(R.drawable.star_full);
                         todoItem.setDate(curTime);
+                        todoItem.setTag(edittag.getText().toString());
+                        todoItem.setUse("0");
                         itemAdapter.addItem(todoItem);
                         itemAdapter.notifyDataSetChanged();
                         RecyclerView_main.smoothScrollToPosition(0);
@@ -134,7 +138,7 @@ public class DBActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
             case R.id.menu1:
-                todoItems = dbHelper.getTodoList();
+                todoItems = dbHelper.getTagList();
                 itemAdapter = new com.example.catchsound.nAdapter(todoItems, this);
                 RecyclerView_main.setHasFixedSize(true);
                 RecyclerView_main.setAdapter(itemAdapter);
@@ -149,6 +153,13 @@ public class DBActivity extends AppCompatActivity {
 
             case R.id.menu3:
                 todoItems = dbHelper.getStarList();
+                itemAdapter = new com.example.catchsound.nAdapter(todoItems, this);
+                RecyclerView_main.setHasFixedSize(true);
+                RecyclerView_main.setAdapter(itemAdapter);
+                break;
+
+            case R.id.menu4:
+                todoItems = dbHelper.getUseList();
                 itemAdapter = new com.example.catchsound.nAdapter(todoItems, this);
                 RecyclerView_main.setHasFixedSize(true);
                 RecyclerView_main.setAdapter(itemAdapter);
