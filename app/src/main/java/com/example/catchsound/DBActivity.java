@@ -2,6 +2,8 @@ package com.example.catchsound;
 
 import android.app.Dialog;
 import android.app.SearchManager;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -46,6 +48,8 @@ public class DBActivity extends AppCompatActivity {
     private com.example.catchsound.nAdapter itemAdapter;
 
     private ArrayList<com.example.catchsound.TodoItem> todoItems;
+
+
 
     private void LoadRecentDB() {
         todoItems = dbHelper.getNameList();
@@ -109,6 +113,9 @@ public class DBActivity extends AppCompatActivity {
         custom_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LoadRecentDB();
         setDB();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(this, ListViewWidget.class));
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_listview);
     }
 
     @Override
@@ -174,4 +181,11 @@ public class DBActivity extends AppCompatActivity {
         RecyclerView_main.setHasFixedSize(true);
         RecyclerView_main.setAdapter(itemAdapter);
     }
+
+
+
+
+
+
+
 }

@@ -19,16 +19,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CatchSound"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity"></activity>
+        <service
+            android:name=".SpeechService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service
+            android:name=".MyRemoteViewsService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver
+            android:name=".ListViewWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/list_view_widget_info" />
+        </receiver>
+
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".DBActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".PronounceActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".PronounceCategoryActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,11 +60,11 @@
         </activity>
         <activity
             android:name=".SttActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".TtsActivity"
             android:exported="true"
-            android:windowSoftInputMode="stateVisible"></activity>
+            android:windowSoftInputMode="stateVisible" />
     </application>
 
 </manifest>

@@ -60,6 +60,7 @@ public class SttActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar() ;
         ab.hide();
 
+
         if ( Build.VERSION.SDK_INT >= 23 ){
             // 퍼미션 체크
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET,
@@ -164,6 +165,11 @@ public class SttActivity extends AppCompatActivity {
         });
 
     }
+
+
+
+
+
 
     private RecognitionListener listener = new RecognitionListener() {
         @Override

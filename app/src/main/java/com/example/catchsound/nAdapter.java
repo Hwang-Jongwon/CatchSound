@@ -15,7 +15,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -71,6 +73,8 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
         holder.item_Use.setText(todoItems.get(position).getUse());
     }
 
+
+
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView item_Content;
 
@@ -85,6 +89,8 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
         private TextView item_Tag;
 
         private TextView item_Use;
+
+
 
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -249,6 +255,10 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
                 }
 
             });
+
+
+
+
         }
 
     }
