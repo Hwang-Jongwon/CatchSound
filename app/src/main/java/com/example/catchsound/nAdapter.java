@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.media.AudioManager;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -135,11 +136,8 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
                         String use = edituse;
                         dbHelper.UpdateTodo(content, curTime, beforeDate, flag, R.drawable.star_full, tag, use);
                         ctodoItem.setFlag(flag);
-                        ctodoItem.setContent(content);
                         ctodoItem.setDate(curTime);
                         ctodoItem.setStar(R.drawable.star_full);
-                        ctodoItem.setTag(tag);
-                        ctodoItem.setUse(use);
                         notifyDataSetChanged();
                     }
                     else{
@@ -152,11 +150,8 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
                         String use = edituse;
                         dbHelper.UpdateTodo(content, curTime, beforeDate, flag, R.drawable.star_empty, tag, use);
                         ctodoItem.setFlag(flag);
-                        ctodoItem.setContent(content);
                         ctodoItem.setDate(curTime);
                         ctodoItem.setStar(R.drawable.star_empty);
-                        ctodoItem.setTag(tag);
-                        ctodoItem.setUse(use);
                         notifyDataSetChanged();
                     }
                 }
@@ -182,13 +177,15 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
                 String tag = edittag;
                 String use = edituse;
                 dbHelper.UpdateTodo(content, curTime, beforeDate, flag, R.drawable.star_full, tag, use);
-                ctodoItem.setFlag(flag);
-                ctodoItem.setContent(content);
                 ctodoItem.setDate(curTime);
-                ctodoItem.setStar(R.drawable.star_full);
-                ctodoItem.setTag(tag);
                 ctodoItem.setUse(use);
                 notifyDataSetChanged();
+
+                AudioManager volumeControl = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+                if(volumeControl.getStreamVolume(AudioManager.STREAM_MUSIC) == 0)
+                    Toast.makeText(context, "소리가 꺼져있어요!", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(context, "음성 재생중입니다!", Toast.LENGTH_SHORT).show();
 
                 tts.setPitch((float) 0.8);
                 tts.setSpeechRate((float) 0.9);
@@ -214,6 +211,7 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
                                 EditText editcontent = dialog.findViewById(R.id.editContent);
                                 EditText edittag = dialog.findViewById(R.id.editTag);
                                 editcontent.setText(ctodoItem.getContent());
+                                edittag.setText(ctodoItem.getTag());
                                 Button btn_save = dialog.findViewById(R.id.button_save);
                                 Button btn_cancel = dialog.findViewById(R.id.button_cancel);
 

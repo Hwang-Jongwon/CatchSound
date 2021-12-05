@@ -5,6 +5,7 @@ import android.app.SearchManager;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.database.Cursor;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -68,6 +69,7 @@ public class DBActivity extends AppCompatActivity {
                 EditText edittag = custom_dialog.findViewById(R.id.editTag);
                 Button button_save = custom_dialog.findViewById(R.id.button_save);
                 Button button_cancel = custom_dialog.findViewById(R.id.button_cancel);
+                edittag.setText("기타");
                 button_save.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         String curTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date());
@@ -104,6 +106,7 @@ public class DBActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar() ;
         ab.setTitle("");
         ab.setElevation(0);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         dbHelper = new com.example.catchsound.DBHelper(this);
         todoItems = new ArrayList<com.example.catchsound.TodoItem>();

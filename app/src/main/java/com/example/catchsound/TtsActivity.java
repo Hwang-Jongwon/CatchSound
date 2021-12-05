@@ -3,6 +3,7 @@ package com.example.catchsound;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -29,6 +31,7 @@ public class TtsActivity extends Activity implements TextToSpeech.OnInitListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tts);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         tts = new TextToSpeech(this, this);
         btn_Speak = findViewById(R.id.btnSpeak);
@@ -41,6 +44,7 @@ public class TtsActivity extends Activity implements TextToSpeech.OnInitListener
             public void onClick(View v) {
                 speakOut();
             }
+
         });
 
         change2.setOnClickListener(v -> {
@@ -54,6 +58,11 @@ public class TtsActivity extends Activity implements TextToSpeech.OnInitListener
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void speakOut() {
         CharSequence text = txtText.getText();
+
+        AudioManager volumeControl = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        if(volumeControl.getStreamVolume(AudioManager.STREAM_MUSIC) == 0)
+            Toast.makeText(this, "소리가 꺼져있어요!", Toast.LENGTH_SHORT).show();
+
         tts.setPitch((float) 0.7);
         tts.setSpeechRate((float) 0.9);
 
