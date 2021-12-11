@@ -24,6 +24,7 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -158,7 +159,8 @@ public class PronounceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pron);
-        getSupportActionBar().setElevation(0);
+        ActionBar ab = getSupportActionBar() ;
+        ab.hide();
 
         //문장들 받아오기
         Intent intent = getIntent();

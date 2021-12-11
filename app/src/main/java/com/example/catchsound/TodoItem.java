@@ -7,9 +7,37 @@ public class TodoItem {
 
     private int id;
 
-    private String till;
+    private String flag;
 
-    private String title;
+    private int star;
+
+    private String tag;
+
+    private String use;
+
+    public String getUse() {
+        return this.use;
+    }
+
+    public void setUse(String use) {
+        this.use = use;
+    }
+
+    public String getTag() {
+        return this.tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getFlag() {
+        return this.flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
 
     public String getContent() {
         return this.content;
@@ -33,5 +61,13 @@ public class TodoItem {
 
     public void setId(int paramInt) {
         this.id = paramInt;
+    }
+
+    public int getStar() {
+        return this.star;
+    }
+
+    public void setStar(int star) {
+        this.star = star;
     }
 }
