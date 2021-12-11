@@ -1,6 +1,7 @@
 package com.example.catchsound;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.AudioFormat;
@@ -12,18 +13,16 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Base64;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -31,11 +30,12 @@ import androidx.core.content.ContextCompat;
 
 import com.google.gson.Gson;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -44,9 +44,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 
 
 public class PronounceActivity extends AppCompatActivity {
@@ -57,9 +58,17 @@ public class PronounceActivity extends AppCompatActivity {
     private static int MICROPHONE_PERMISSION_CODE = 100;
 
     ImageButton buttonStart;
-    TextView textResult;
+    TextView textMike;
+    TextView sentence;
+    TextView review;
+    Button buttonBefore;
+    Button buttonNext;
+    ArrayList<String> sentenceList;
+    private int nowsentenceIdx = 0;
+    private int finalsentenceIdx;
 
     String result;
+
 
     int maxLenSpeech = 16000 * 45;
     byte [] speechData = new byte [maxLenSpeech * 2];
@@ -75,20 +84,20 @@ public class PronounceActivity extends AppCompatActivity {
             switch (msg.what) {
                 //녹음 시작
                 case 1:
-                    textResult.setText(v);
+                    textMike.setText(v);
                     break;
                 //녹음이 정상적으로 종료됨(버튼 눌렀거나, 시간 끝)
                 case 2:
-                    textResult.setText(v);
+                    textMike.setText(v);
                     buttonStart.setEnabled(false);
                     break;
                 //녹음이 비정상적으로 종료됨(마이크 권한 필요 등등)
                 case 3:
-                    textResult.setText(v);
+                    textMike.setText(v);
                     break;
                 //인식이 비정상적으로 종료됨
                 case 4:
-                    textResult.setText(v);
+                    textMike.setText(v);
                     buttonStart.setEnabled(true);
                     break;
                 //인식이 정상적으로 종료됨
@@ -97,15 +106,35 @@ public class PronounceActivity extends AppCompatActivity {
                     int recognized_idx = result.indexOf("recognized");
                     int score_idx = result.indexOf("score");
                     if (score_idx - recognized_idx == 16){
-                        textResult.setText("녹음이 되지 않았어요. 다시 시도해 주세요!");
+                        textMike.setText("녹음이 되지 않았어요. 다시 시도해 주세요!");
                     }
                     else{
                         String recognized = result.substring(recognized_idx + 13, score_idx - 3);
                         String score = result.substring(score_idx + 7, score_idx + 12);
                         Double double_score = (Double) Double.parseDouble(score);
                         double_score = (Double) (Math.round(double_score*10)/10.0);
-                        score = Double.toString(double_score);
-                        textResult.setText("인식된 문장 : " + recognized + "\n" + "점수 : " + score);
+
+                        if(double_score < 1.0){
+                            score = "☆☆☆☆☆";
+                        }
+                        else if(1.0 <= double_score && double_score < 2.0){
+                            score = "★☆☆☆☆";
+                        }
+                        else if(2.0 <= double_score && double_score < 3.0){
+                            score = "★★☆☆☆";
+                        }
+                        else if(3.0 <= double_score && double_score < 4.0){
+                            score = "★★★☆☆";
+                        }
+                        else if(4.0 <= double_score && double_score < 4.5){
+                            score = "★★★★☆";
+                        }
+                        else if(4.5 <= double_score && double_score <= 5.0){
+                            score = "★★★★★";
+                        }
+
+                        textMike.setText("");
+                        review.setText("인식된 문장 : " + recognized + "\n" + score);
                     }
 
                     buttonStart.setEnabled(true);
@@ -131,19 +160,82 @@ public class PronounceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pron);
         getSupportActionBar().setElevation(0);
 
+        //문장들 받아오기
+        Intent intent = getIntent();
+        String categoryid = intent.getStringExtra("categoryname");
+        sentenceList = new ArrayList<>();
+
+        if(categoryid.equals("greeting")){
+            getSentences(1);
+        }
+        else if(categoryid.equals("weather")){
+            getSentences(2);
+        }
+        else if(categoryid.equals("emotion")){
+            getSentences(3);
+        }
+        else if(categoryid.equals("taste")){
+            getSentences(4);
+        }
+        else if(categoryid.equals("ordering")){
+            getSentences(5);
+        }
+        else if(categoryid.equals("shopping")){
+            getSentences(6);
+        }
+        else if(categoryid.equals("transportation")){
+            getSentences(7);
+        }
+
         //마이크 권한 요청
         if (isMicrophonePresent()){
             getMicrophonePermission();
         }
 
         buttonStart = (ImageButton)this.findViewById(R.id.buttonStart);
-        textResult = (TextView)this.findViewById(R.id.textResult);
+        textMike = (TextView)this.findViewById(R.id.textResult);
+        sentence = (TextView)this.findViewById(R.id.sentence);
+        review = (TextView)this.findViewById(R.id.review);
+        buttonBefore = (Button)this.findViewById(R.id.btn_before);
+        buttonNext = (Button)this.findViewById(R.id.btn_next);
+        sentence.setText(sentenceList.get(nowsentenceIdx));
 
-        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.alpha);
-        textResult.startAnimation(animation);
+        //애니메이션 효과
+        Animation anim_fadein = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.alpha);
+        Animation anim_fadeout = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadeout);
+        textMike.startAnimation(anim_fadein);
+        sentence.startAnimation(anim_fadein);
+        review.startAnimation(anim_fadein);
+
+        Log.i("마지막 열 인덱스", "" + finalsentenceIdx);
+
+        //이전, 다음 버튼 클릭
+        buttonBefore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if( nowsentenceIdx > 0){
+                    nowsentenceIdx -= 1;
+                    sentence.setText(sentenceList.get(nowsentenceIdx));
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "맨 처음 문장입니다!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(nowsentenceIdx < finalsentenceIdx - 2){
+                    nowsentenceIdx++;
+                    sentence.setText(sentenceList.get(nowsentenceIdx));
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "맨 마지막 문장입니다!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-
 
         buttonStart.setOnClickListener(new  View.OnClickListener() {
             public void onClick(View v) {
@@ -182,7 +274,7 @@ public class PronounceActivity extends AppCompatActivity {
                             }
                         }).start();
                     } catch (Throwable t) {
-                        textResult.setText("ERROR: " + t.toString());
+                        textMike.setText("ERROR: " + t.toString());
                         forceStop = false;
                         isRecording = false;
                     }
@@ -305,6 +397,35 @@ public class PronounceActivity extends AppCompatActivity {
                 return "ERROR: " + Integer.toString(responseCode);
         } catch (Throwable t) {
             return "ERROR: " + t.toString();
+        }
+    }
+
+    protected void getSentences(int colnum){
+        try {
+            InputStream is = getResources().getAssets().open("prondb.xls");
+            Workbook wb = Workbook.getWorkbook(is);
+            Sheet sheet = wb.getSheet(0);
+            if(sheet != null){
+                int colTotal = sheet.getColumns(); //열의 수
+                int rowTotal = sheet.getColumn(colTotal - 1).length; //행의 수
+                finalsentenceIdx = rowTotal;
+
+                StringBuilder sb;
+                for(int row = 1; row<rowTotal; row++){
+                    sb = new StringBuilder();
+
+                    String sentence = sheet.getCell(colnum, row).getContents(); //colnum에 따라 다른 문장들을 가져옴
+                    sb.append(sentence);
+
+                    sentenceList.add(sb.toString());
+                }
+            }
+
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        } catch (BiffException e) {
+            e.printStackTrace();
         }
     }
 

@@ -2,11 +2,19 @@ package com.example.catchsound;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+
+import jxl.Sheet;
+import jxl.Workbook;
 
 public class PronounceCategoryActivity extends AppCompatActivity {
 
@@ -30,6 +38,7 @@ public class PronounceCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PronounceActivity.class);
+                intent.putExtra("categoryname", "greeting");
                 startActivity(intent);
             }
         });
@@ -39,6 +48,7 @@ public class PronounceCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PronounceActivity.class);
+                intent.putExtra("categoryname", "weather");
                 startActivity(intent);
             }
         });
@@ -48,6 +58,7 @@ public class PronounceCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PronounceActivity.class);
+                intent.putExtra("categoryname", "emotion");
                 startActivity(intent);
             }
         });
@@ -57,6 +68,7 @@ public class PronounceCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PronounceActivity.class);
+                intent.putExtra("categoryname", "taste");
                 startActivity(intent);
             }
         });
@@ -66,6 +78,7 @@ public class PronounceCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PronounceActivity.class);
+                intent.putExtra("categoryname", "ordering");
                 startActivity(intent);
             }
         });
@@ -75,6 +88,7 @@ public class PronounceCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PronounceActivity.class);
+                intent.putExtra("categoryname", "shopping");
                 startActivity(intent);
             }
         });
@@ -84,6 +98,7 @@ public class PronounceCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PronounceActivity.class);
+                intent.putExtra("categoryname", "transportation");
                 startActivity(intent);
             }
         });

@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PronounceActivity">
 
-
     <LinearLayout
         android:layout_width="390dp"
         android:layout_height="fill_parent"
@@ -15,6 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
 
         <TextView
             android:id="@+id/textResult"
@@ -31,11 +31,70 @@
             android:inputType="textMultiLine"
             android:paddingTop="50dp"
             android:text="마이크를 누른 후 문장을 말해보세요."
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.326" />
+
+        <LinearLayout
+            android:layout_width="390dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_before"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textColor="#000000"
+                android:text="이전"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/sentence"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/nanum"
+                android:gravity="center"
+                android:text="발음할 문장"
+                android:textSize="20sp"
+                android:background="@drawable/sentencetv_border"/>
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="3"
+                android:textColor="#000000"
+                android:text="다음"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@android:color/background_light"
+            android:fontFamily="@font/nanum"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="결과가 여기 표시됨"
+            />
+
+
 
         <ImageButton
             android:id="@+id/buttonStart"
@@ -48,6 +107,8 @@
             app:backgroundTint="@color/transparent"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp" />
+
+
 
     </LinearLayout>
 
