@@ -75,7 +75,6 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
     }
 
 
-
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView item_Content;
 
@@ -90,8 +89,6 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
         private TextView item_Tag;
 
         private TextView item_Use;
-
-
 
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -126,7 +123,7 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
                     int usenum = Integer.parseInt(edituse);
                     edituse = String.valueOf(usenum);
 
-                    if(flag == "0"){
+                    if (Integer.parseInt(flag) == 0) {
                         flag = "1";
                         item_Star.setBackgroundResource(R.drawable.star_full);
                         String content = editcontent;
@@ -139,8 +136,7 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
                         ctodoItem.setDate(curTime);
                         ctodoItem.setStar(R.drawable.star_full);
                         notifyDataSetChanged();
-                    }
-                    else{
+                    } else {
                         flag = "0";
                         item_Star.setBackgroundResource(R.drawable.star_empty);
                         String content = editcontent;
@@ -182,14 +178,14 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
                 notifyDataSetChanged();
 
                 AudioManager volumeControl = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-                if(volumeControl.getStreamVolume(AudioManager.STREAM_MUSIC) == 0)
+                if (volumeControl.getStreamVolume(AudioManager.STREAM_MUSIC) == 0)
                     Toast.makeText(context, "소리가 꺼져있어요!", Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(context, "음성 재생중입니다!", Toast.LENGTH_SHORT).show();
 
                 tts.setPitch((float) 0.8);
                 tts.setSpeechRate((float) 0.9);
-                tts.speak(item_Content.getText().toString(),TextToSpeech.QUEUE_FLUSH,null,"id1");
+                tts.speak(item_Content.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "id1");
 
             });
 
@@ -253,8 +249,6 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
                 }
 
             });
-
-
 
 
         }
