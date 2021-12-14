@@ -108,7 +108,7 @@
         android:text="음성을 텍스트로 보기"
         app:layout_constraintLeft_toRightOf="@id/db_fab1"
         app:layout_constraintBottom_toBottomOf="@id/db_fab1"
-        tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tv3_tts"
@@ -120,7 +120,7 @@
         android:text="채팅으로 말하기"
         app:layout_constraintLeft_toRightOf="@id/db_fab2"
         app:layout_constraintBottom_toBottomOf="@id/db_fab2"
-        tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tv3_pron"
@@ -132,6 +132,6 @@
         android:text="발음 교정"
         app:layout_constraintLeft_toRightOf="@id/db_fab3"
         app:layout_constraintBottom_toBottomOf="@id/db_fab3"
-        tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
