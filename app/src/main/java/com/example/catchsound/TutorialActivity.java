@@ -1,5 +1,7 @@
 package com.example.catchsound;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,15 +31,27 @@ public class TutorialActivity extends AppCompatActivity {
     private int[] layouts;
     private Button btnSkip, btnNext;
 
+    private long time = 0;
+
+    @Override
+    public void onBackPressed() {
+
+        if (System.currentTimeMillis() - time >= 2000) {
+            time = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(), "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        } else if (System.currentTimeMillis() - time < 2000) {
+
+            finishAffinity();
+            System.runFinalization();
+            System.exit(0);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar ab = getSupportActionBar();
         ab.hide();
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
 
         setContentView(R.layout.activity_tutorial);
 
@@ -53,8 +68,6 @@ public class TutorialActivity extends AppCompatActivity {
         };
 
         addBottomDots(0);
-
-        changeStatusBarColor();
 
         pagerAdapter = new PagerAdapter();
         viewPager.setAdapter(pagerAdapter);
@@ -130,14 +143,6 @@ public class TutorialActivity extends AppCompatActivity {
 
         }
     };
-
-    private void changeStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
-    }
 
     public class PagerAdapter extends androidx.viewpager.widget.PagerAdapter {
         private LayoutInflater layoutInflater;

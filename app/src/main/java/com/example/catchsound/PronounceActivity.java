@@ -72,10 +72,11 @@ public class PronounceActivity extends AppCompatActivity {
 
 
     int maxLenSpeech = 16000 * 45;
-    byte [] speechData = new byte [maxLenSpeech * 2];
+    byte[] speechData = new byte[maxLenSpeech * 2];
     int lenSpeech = 0;
     boolean isRecording = false;
     boolean forceStop = false;
+
 
     private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
@@ -106,31 +107,25 @@ public class PronounceActivity extends AppCompatActivity {
                     //인식된 문장, 점수 보여주기
                     int recognized_idx = result.indexOf("recognized");
                     int score_idx = result.indexOf("score");
-                    if (score_idx - recognized_idx == 16){
+                    if (score_idx - recognized_idx == 16) {
                         textMike.setText("녹음이 되지 않았어요. 다시 시도해 주세요!");
-                    }
-                    else{
+                    } else {
                         String recognized = result.substring(recognized_idx + 13, score_idx - 3);
                         String score = result.substring(score_idx + 7, score_idx + 12);
                         Double double_score = (Double) Double.parseDouble(score);
-                        double_score = (Double) (Math.round(double_score*10)/10.0);
+                        double_score = (Double) (Math.round(double_score * 10) / 10.0);
 
-                        if(double_score < 1.0){
+                        if (double_score < 1.0) {
                             score = "☆☆☆☆☆";
-                        }
-                        else if(1.0 <= double_score && double_score < 2.0){
+                        } else if (1.0 <= double_score && double_score < 2.0) {
                             score = "★☆☆☆☆";
-                        }
-                        else if(2.0 <= double_score && double_score < 3.0){
+                        } else if (2.0 <= double_score && double_score < 3.0) {
                             score = "★★☆☆☆";
-                        }
-                        else if(3.0 <= double_score && double_score < 4.0){
+                        } else if (3.0 <= double_score && double_score < 4.0) {
                             score = "★★★☆☆";
-                        }
-                        else if(4.0 <= double_score && double_score < 4.5){
+                        } else if (4.0 <= double_score && double_score < 4.5) {
                             score = "★★★★☆";
-                        }
-                        else if(4.5 <= double_score && double_score <= 5.0){
+                        } else if (4.5 <= double_score && double_score <= 5.0) {
                             score = "★★★★★";
                         }
 
@@ -159,7 +154,7 @@ public class PronounceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pron);
-        ActionBar ab = getSupportActionBar() ;
+        ActionBar ab = getSupportActionBar();
         ab.hide();
 
         //문장들 받아오기
@@ -167,44 +162,38 @@ public class PronounceActivity extends AppCompatActivity {
         String categoryid = intent.getStringExtra("categoryname");
         sentenceList = new ArrayList<>();
 
-        if(categoryid.equals("greeting")){
+        if (categoryid.equals("greeting")) {
             getSentences(1);
-        }
-        else if(categoryid.equals("weather")){
+        } else if (categoryid.equals("weather")) {
             getSentences(2);
-        }
-        else if(categoryid.equals("emotion")){
+        } else if (categoryid.equals("emotion")) {
             getSentences(3);
-        }
-        else if(categoryid.equals("taste")){
+        } else if (categoryid.equals("taste")) {
             getSentences(4);
-        }
-        else if(categoryid.equals("ordering")){
+        } else if (categoryid.equals("ordering")) {
             getSentences(5);
-        }
-        else if(categoryid.equals("shopping")){
+        } else if (categoryid.equals("shopping")) {
             getSentences(6);
-        }
-        else if(categoryid.equals("transportation")){
+        } else if (categoryid.equals("transportation")) {
             getSentences(7);
         }
 
         //마이크 권한 요청
-        if (isMicrophonePresent()){
+        if (isMicrophonePresent()) {
             getMicrophonePermission();
         }
 
-        buttonStart = (ImageButton)this.findViewById(R.id.buttonStart);
-        textMike = (TextView)this.findViewById(R.id.textResult);
-        sentence = (TextView)this.findViewById(R.id.sentence);
-        review = (TextView)this.findViewById(R.id.review);
-        buttonBefore = (Button)this.findViewById(R.id.btn_before);
-        buttonNext = (Button)this.findViewById(R.id.btn_next);
+        buttonStart = (ImageButton) this.findViewById(R.id.buttonStart);
+        textMike = (TextView) this.findViewById(R.id.textResult);
+        sentence = (TextView) this.findViewById(R.id.sentence);
+        review = (TextView) this.findViewById(R.id.review);
+        buttonBefore = (Button) this.findViewById(R.id.btn_before);
+        buttonNext = (Button) this.findViewById(R.id.btn_next);
         sentence.setText(sentenceList.get(nowsentenceIdx));
 
         //애니메이션 효과
-        Animation anim_fadein = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.alpha);
-        Animation anim_fadeout = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadeout);
+        Animation anim_fadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.alpha);
+        Animation anim_fadeout = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout);
         textMike.startAnimation(anim_fadein);
         sentence.startAnimation(anim_fadein);
         review.startAnimation(anim_fadein);
@@ -215,11 +204,10 @@ public class PronounceActivity extends AppCompatActivity {
         buttonBefore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if( nowsentenceIdx > 0){
+                if (nowsentenceIdx > 0) {
                     nowsentenceIdx -= 1;
                     sentence.setText(sentenceList.get(nowsentenceIdx));
-                }
-                else{
+                } else {
                     Toast.makeText(getApplicationContext(), "맨 처음 문장입니다!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -227,11 +215,10 @@ public class PronounceActivity extends AppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(nowsentenceIdx < finalsentenceIdx - 2){
+                if (nowsentenceIdx < finalsentenceIdx - 2) {
                     nowsentenceIdx++;
                     sentence.setText(sentenceList.get(nowsentenceIdx));
-                }
-                else{
+                } else {
                     Toast.makeText(getApplicationContext(), "맨 마지막 문장입니다!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -239,7 +226,7 @@ public class PronounceActivity extends AppCompatActivity {
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 
-        buttonStart.setOnClickListener(new  View.OnClickListener() {
+        buttonStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (isRecording) {
                     forceStop = true;
@@ -285,27 +272,26 @@ public class PronounceActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isMicrophonePresent(){
-        if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE)){
+    private boolean isMicrophonePresent() {
+        if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
-    private void getMicrophonePermission(){
+    private void getMicrophonePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
-                == PackageManager.PERMISSION_DENIED){
+                == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this,
-                    new String[] {Manifest.permission.RECORD_AUDIO}, MICROPHONE_PERMISSION_CODE);
+                    new String[]{Manifest.permission.RECORD_AUDIO}, MICROPHONE_PERMISSION_CODE);
         }
     }
 
     public static String readStream(InputStream in) throws IOException {
         StringBuilder sb = new StringBuilder();
-        BufferedReader r = new BufferedReader(new InputStreamReader(in),1000);
-        for (String line = r.readLine(); line != null; line =r.readLine()){
+        BufferedReader r = new BufferedReader(new InputStreamReader(in), 1000);
+        for (String line = r.readLine(); line != null; line = r.readLine()) {
             sb.append(line);
         }
         in.close();
@@ -327,21 +313,20 @@ public class PronounceActivity extends AppCompatActivity {
             lenSpeech = 0;
             if (audio.getState() != AudioRecord.STATE_INITIALIZED) {
                 throw new RuntimeException("ERROR: Failed to initialize audio device. Allow app to access microphone");
-            }
-            else {
-                short [] inBuffer = new short [bufferSize];
+            } else {
+                short[] inBuffer = new short[bufferSize];
                 forceStop = false;
                 isRecording = true;
                 audio.startRecording();
                 while (!forceStop) {
                     int ret = audio.read(inBuffer, 0, bufferSize);
-                    for (int i = 0; i < ret ; i++ ) {
+                    for (int i = 0; i < ret; i++) {
                         if (lenSpeech >= maxLenSpeech) {
                             forceStop = true;
                             break;
                         }
-                        speechData[lenSpeech*2] = (byte)(inBuffer[i] & 0x00FF);
-                        speechData[lenSpeech*2+1] = (byte)((inBuffer[i] & 0xFF00) >> 8);
+                        speechData[lenSpeech * 2] = (byte) (inBuffer[i] & 0x00FF);
+                        speechData[lenSpeech * 2 + 1] = (byte) ((inBuffer[i] & 0xFF00) >> 8);
                         lenSpeech++;
                     }
                 }
@@ -349,12 +334,12 @@ public class PronounceActivity extends AppCompatActivity {
                 audio.release();
                 isRecording = false;
             }
-        } catch(Throwable t) {
+        } catch (Throwable t) {
             throw new RuntimeException(t.toString());
         }
     }
 
-    public String sendDataAndGetResult () {
+    public String sendDataAndGetResult() {
         String openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/RecognitionKor";
         String languageCode;
         String audioContents;
@@ -367,7 +352,7 @@ public class PronounceActivity extends AppCompatActivity {
         Map<String, String> argument = new HashMap<>();
 
         audioContents = Base64.encodeToString(
-                speechData, 0, lenSpeech*2, Base64.NO_WRAP);
+                speechData, 0, lenSpeech * 2, Base64.NO_WRAP);
 
         argument.put("language_code", languageCode);
         argument.put("audio", audioContents);
@@ -380,7 +365,7 @@ public class PronounceActivity extends AppCompatActivity {
         String responBody;
         try {
             url = new URL(openApiURL);
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);
 
@@ -390,30 +375,29 @@ public class PronounceActivity extends AppCompatActivity {
             wr.close();
 
             responseCode = con.getResponseCode();
-            if ( responseCode == 200 ) {
+            if (responseCode == 200) {
                 InputStream is = new BufferedInputStream(con.getInputStream());
                 responBody = readStream(is);
                 return responBody;
-            }
-            else
+            } else
                 return "ERROR: " + Integer.toString(responseCode);
         } catch (Throwable t) {
             return "ERROR: " + t.toString();
         }
     }
 
-    protected void getSentences(int colnum){
+    protected void getSentences(int colnum) {
         try {
             InputStream is = getResources().getAssets().open("prondb.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet sheet = wb.getSheet(0);
-            if(sheet != null){
+            if (sheet != null) {
                 int colTotal = sheet.getColumns(); //열의 수
                 int rowTotal = sheet.getColumn(colTotal - 1).length; //행의 수
                 finalsentenceIdx = rowTotal;
 
                 StringBuilder sb;
-                for(int row = 1; row<rowTotal; row++){
+                for (int row = 1; row < rowTotal; row++) {
                     sb = new StringBuilder();
 
                     String sentence = sheet.getCell(colnum, row).getContents(); //colnum에 따라 다른 문장들을 가져옴
@@ -423,8 +407,7 @@ public class PronounceActivity extends AppCompatActivity {
                 }
             }
 
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (BiffException e) {
             e.printStackTrace();

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="catch_yellow">#55F7E600</color>
     <color name="purple_200">#55F7E600</color>
     <color name="purple_500">#55F7E600</color>
     <color name="purple_700">#55F7E600</color>

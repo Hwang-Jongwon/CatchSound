@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -55,7 +56,6 @@ public class DBActivity extends AppCompatActivity {
     private ArrayList<com.example.catchsound.TodoItem> todoItems;
 
 
-
     private FloatingActionButton change3;
     private FloatingActionButton db_fab1;
     private FloatingActionButton db_fab2;
@@ -63,8 +63,23 @@ public class DBActivity extends AppCompatActivity {
     private TextView tv3_stt;
     private TextView tv3_tts;
     private TextView tv3_pron;
-    private boolean isopen=false;
+    private boolean isopen = false;
     private Animation fab_open, fab_close;
+    private long time = 0;
+
+    @Override
+    public void onBackPressed() {
+
+        if (System.currentTimeMillis() - time >= 2000) {
+            time = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(), "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        } else if (System.currentTimeMillis() - time < 2000) {
+
+            finishAffinity();
+            System.runFinalization();
+            System.exit(0);
+        }
+    }
 
     private void LoadRecentDB() {
         todoItems = dbHelper.getNameList();
@@ -117,7 +132,7 @@ public class DBActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
-        ActionBar ab = getSupportActionBar() ;
+        ActionBar ab = getSupportActionBar();
         ab.setTitle("");
         ab.setElevation(0);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -135,21 +150,21 @@ public class DBActivity extends AppCompatActivity {
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_listview);
 
 
-        change3=(FloatingActionButton)findViewById(R.id.change3);
-        db_fab1=(FloatingActionButton)findViewById(R.id.db_fab1);
-        db_fab2=(FloatingActionButton)findViewById(R.id.db_fab2);
-        db_fab3=(FloatingActionButton)findViewById(R.id.db_fab3);
-        tv3_tts=(TextView)findViewById(R.id.tv3_tts);
-        tv3_stt=(TextView)findViewById(R.id.tv3_stt);
-        tv3_pron=(TextView)findViewById(R.id.tv3_pron);
+        change3 = (FloatingActionButton) findViewById(R.id.change3);
+        db_fab1 = (FloatingActionButton) findViewById(R.id.db_fab1);
+        db_fab2 = (FloatingActionButton) findViewById(R.id.db_fab2);
+        db_fab3 = (FloatingActionButton) findViewById(R.id.db_fab3);
+        tv3_tts = (TextView) findViewById(R.id.tv3_tts);
+        tv3_stt = (TextView) findViewById(R.id.tv3_stt);
+        tv3_pron = (TextView) findViewById(R.id.tv3_pron);
 
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
 
 
-        change3.setOnClickListener(v->{
+        change3.setOnClickListener(v -> {
 
-            if(isopen) {
+            if (isopen) {
                 db_fab1.startAnimation(fab_close);
                 db_fab1.setClickable(false);
                 db_fab2.startAnimation(fab_close);
@@ -161,11 +176,8 @@ public class DBActivity extends AppCompatActivity {
                 tv3_tts.startAnimation(fab_close);
                 tv3_pron.startAnimation(fab_close);
 
-                isopen=false;
-            }
-
-
-            else{
+                isopen = false;
+            } else {
 
                 db_fab1.startAnimation(fab_open);
                 db_fab1.setClickable(true);
@@ -178,7 +190,7 @@ public class DBActivity extends AppCompatActivity {
                 tv3_tts.startAnimation(fab_open);
                 tv3_pron.startAnimation(fab_open);
 
-                isopen=true;
+                isopen = true;
             }
 
 
@@ -186,21 +198,21 @@ public class DBActivity extends AppCompatActivity {
 
         db_fab1.setOnClickListener(v -> {
 
-                Intent intent= new Intent(DBActivity.this, SttActivity.class);
-                startActivity(intent);
+            Intent intent = new Intent(DBActivity.this, SttActivity.class);
+            startActivity(intent);
 
         });
 
         db_fab2.setOnClickListener(v -> {
 
-            Intent intent= new Intent(DBActivity.this, TtsActivity.class);
+            Intent intent = new Intent(DBActivity.this, TtsActivity.class);
             startActivity(intent);
 
         });
 
         db_fab3.setOnClickListener(v -> {
 
-            Intent intent= new Intent(DBActivity.this,PronounceCategoryActivity.class);
+            Intent intent = new Intent(DBActivity.this, PronounceCategoryActivity.class);
             startActivity(intent);
 
         });
@@ -231,7 +243,7 @@ public class DBActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.menu1:
                 todoItems = dbHelper.getTagList();
                 itemAdapter = new com.example.catchsound.nAdapter(todoItems, this);
@@ -269,12 +281,6 @@ public class DBActivity extends AppCompatActivity {
         RecyclerView_main.setHasFixedSize(true);
         RecyclerView_main.setAdapter(itemAdapter);
     }
-
-
-
-
-
-
 
 
 }
