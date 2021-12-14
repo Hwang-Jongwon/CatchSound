@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -26,7 +29,17 @@ public class TtsActivity extends Activity implements TextToSpeech.OnInitListener
     private Button btn_Speak;
     private EditText txtText;
     private FloatingActionButton change2;
+    FloatingActionButton fab_sub4;
+    FloatingActionButton fab_sub5;
+    FloatingActionButton fab_sub6;
 
+    TextView tv2_stt;
+    TextView tv2_db;
+    TextView tv2_pron;
+
+    private Animation fab_open, fab_close;
+
+    boolean isopen = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +51,17 @@ public class TtsActivity extends Activity implements TextToSpeech.OnInitListener
         txtText = findViewById(R.id.txtText);
         change2 = findViewById(R.id.change2);
 
+        fab_sub4=(FloatingActionButton)findViewById(R.id.fabsub4);
+        fab_sub5=(FloatingActionButton)findViewById(R.id.fabsub5);
+        fab_sub6=(FloatingActionButton)findViewById(R.id.fabsub6);
+
+        tv2_stt=(TextView)findViewById(R.id.tv2_stt);
+        tv2_db=(TextView)findViewById(R.id.tv2_db);
+        tv2_pron=(TextView)findViewById(R.id.tv2_pron);
+
+        fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+
         btn_Speak.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
@@ -48,8 +72,58 @@ public class TtsActivity extends Activity implements TextToSpeech.OnInitListener
         });
 
         change2.setOnClickListener(v -> {
+//            Intent intent= new Intent(TtsActivity.this, SttActivity.class);
+//            startActivity(intent);
+            if(isopen) {
+            fab_sub4.startAnimation(fab_close);
+            fab_sub4.setClickable(false);
+            fab_sub5.startAnimation(fab_close);
+            fab_sub5.setClickable(false);
+            fab_sub6.startAnimation(fab_close);
+            fab_sub6.setClickable(false);
+
+                tv2_stt.startAnimation(fab_close);
+                tv2_db.startAnimation(fab_close);
+                tv2_pron.startAnimation(fab_close);
+            isopen=false;
+            }
+
+
+            else{
+
+            fab_sub4.startAnimation(fab_open);
+            fab_sub4.setClickable(true);
+            fab_sub5.startAnimation(fab_open);
+            fab_sub5.setClickable(true);
+            fab_sub6.startAnimation(fab_open);
+            fab_sub6.setClickable(true);
+
+                tv2_stt.startAnimation(fab_open);
+                tv2_db.startAnimation(fab_open);
+                tv2_pron.startAnimation(fab_open);
+            isopen=true;
+        }
+        });
+
+        fab_sub4.setOnClickListener(v->{
             Intent intent= new Intent(TtsActivity.this, SttActivity.class);
             startActivity(intent);
+
+
+
+        });
+
+        fab_sub5.setOnClickListener(v->{
+            Intent intent= new Intent(TtsActivity.this, DBActivity.class);
+            startActivity(intent);
+
+
+        });
+
+        fab_sub6.setOnClickListener(v->{
+            Intent intent= new Intent(TtsActivity.this, PronounceCategoryActivity.class);
+            startActivity(intent);
+
 
         });
 

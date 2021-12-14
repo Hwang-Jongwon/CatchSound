@@ -15,7 +15,7 @@
         android:layout_marginBottom="32.0dp"
         android:clickable="true"
         android:src="@drawable/plus"
-        app:backgroundTint="#ff87cefa"
+        app:backgroundTint="#ffff80"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -26,15 +26,112 @@
         android:layout_height="0.0dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="35dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginBottom="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/activity_item" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/activity_item">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/change3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="275dp"
+        android:layout_marginBottom="32dp"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_star_24"
+        app:backgroundTint="#ffff80"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/db_fab3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="280dp"
+        android:layout_marginBottom="92dp"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_mic_24"
+        app:backgroundTint="#ffff80"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/db_fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="280dp"
+        android:layout_marginBottom="142dp"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_keyboard_24"
+        app:backgroundTint="#ffff80"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/db_fab1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="280dp"
+        android:layout_marginBottom="192dp"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_hearing_24"
+        app:backgroundTint="#ffff80"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/tv3_stt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="5dp"
+        android:visibility="invisible"
+        android:text="음성을 텍스트로 보기"
+        app:layout_constraintLeft_toRightOf="@id/db_fab1"
+        app:layout_constraintBottom_toBottomOf="@id/db_fab1"
+        tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/tv3_tts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="5dp"
+        android:visibility="invisible"
+        android:text="채팅으로 말하기"
+        app:layout_constraintLeft_toRightOf="@id/db_fab2"
+        app:layout_constraintBottom_toBottomOf="@id/db_fab2"
+        tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/tv3_pron"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="5dp"
+        android:visibility="invisible"
+        android:text="발음 교정"
+        app:layout_constraintLeft_toRightOf="@id/db_fab3"
+        app:layout_constraintBottom_toBottomOf="@id/db_fab3"
+        tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

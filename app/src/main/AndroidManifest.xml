@@ -47,6 +47,7 @@
             android:exported="true" />
         <activity
             android:name=".DBActivity"
+
             android:exported="true" />
         <activity
             android:name=".PronounceActivity"

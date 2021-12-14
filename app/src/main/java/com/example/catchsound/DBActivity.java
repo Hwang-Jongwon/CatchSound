@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.SearchManager;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
+import android.content.Intent;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.os.Build;
@@ -14,10 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -51,6 +55,16 @@ public class DBActivity extends AppCompatActivity {
     private ArrayList<com.example.catchsound.TodoItem> todoItems;
 
 
+
+    private FloatingActionButton change3;
+    private FloatingActionButton db_fab1;
+    private FloatingActionButton db_fab2;
+    private FloatingActionButton db_fab3;
+    private TextView tv3_stt;
+    private TextView tv3_tts;
+    private TextView tv3_pron;
+    private boolean isopen=false;
+    private Animation fab_open, fab_close;
 
     private void LoadRecentDB() {
         todoItems = dbHelper.getNameList();
@@ -119,6 +133,77 @@ public class DBActivity extends AppCompatActivity {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(this, ListViewWidget.class));
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_listview);
+
+
+        change3=(FloatingActionButton)findViewById(R.id.change3);
+        db_fab1=(FloatingActionButton)findViewById(R.id.db_fab1);
+        db_fab2=(FloatingActionButton)findViewById(R.id.db_fab2);
+        db_fab3=(FloatingActionButton)findViewById(R.id.db_fab3);
+        tv3_tts=(TextView)findViewById(R.id.tv3_tts);
+        tv3_stt=(TextView)findViewById(R.id.tv3_stt);
+        tv3_pron=(TextView)findViewById(R.id.tv3_pron);
+
+        fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+
+
+        change3.setOnClickListener(v->{
+
+            if(isopen) {
+                db_fab1.startAnimation(fab_close);
+                db_fab1.setClickable(false);
+                db_fab2.startAnimation(fab_close);
+                db_fab2.setClickable(false);
+                db_fab3.startAnimation(fab_close);
+                db_fab3.setClickable(false);
+
+                tv3_stt.startAnimation(fab_close);
+                tv3_tts.startAnimation(fab_close);
+                tv3_pron.startAnimation(fab_close);
+
+                isopen=false;
+            }
+
+
+            else{
+
+                db_fab1.startAnimation(fab_open);
+                db_fab1.setClickable(true);
+                db_fab2.startAnimation(fab_open);
+                db_fab2.setClickable(true);
+                db_fab3.startAnimation(fab_open);
+                db_fab3.setClickable(true);
+
+                tv3_stt.startAnimation(fab_open);
+                tv3_tts.startAnimation(fab_open);
+                tv3_pron.startAnimation(fab_open);
+
+                isopen=true;
+            }
+
+
+        });
+
+        db_fab1.setOnClickListener(v -> {
+
+                Intent intent= new Intent(DBActivity.this, SttActivity.class);
+                startActivity(intent);
+
+        });
+
+        db_fab2.setOnClickListener(v -> {
+
+            Intent intent= new Intent(DBActivity.this, TtsActivity.class);
+            startActivity(intent);
+
+        });
+
+        db_fab3.setOnClickListener(v -> {
+
+            Intent intent= new Intent(DBActivity.this,PronounceCategoryActivity.class);
+            startActivity(intent);
+
+        });
     }
 
     @Override
@@ -184,6 +269,7 @@ public class DBActivity extends AppCompatActivity {
         RecyclerView_main.setHasFixedSize(true);
         RecyclerView_main.setAdapter(itemAdapter);
     }
+
 
 
 

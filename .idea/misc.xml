@@ -3,12 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/layout/activity_db.xml" value="0.20380434782608695" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/layout/activity_item.xml" value="0.17806484295845998" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/layout/activity_main2.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/layout/activity_pron.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/layout/activity_pron_category.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/layout/activity_splash.xml" value="0.17806484295845998" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/layout/activity_stt.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/layout/activity_tts.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/layout/custom_dialog.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/menu/from_db.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/menu/from_pron.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/menu/from_stt.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/menu/from_tts.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/menu/menu.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CatchSound/app/src/main/res/menu/setting.xml" value="0.3605128205128205" />
         <entry key="..\:/Users/JIP/AndroidStudioProjects/projectCatchSound/app/src/main/res/drawable/sentencetv_border.xml" value="0.378125" />
         <entry key="..\:/Users/JIP/AndroidStudioProjects/projectCatchSound/app/src/main/res/layout/activity_db.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/JIP/AndroidStudioProjects/projectCatchSound/app/src/main/res/layout/activity_edit.xml" value="0.2212962962962963" />
@@ -28,16 +39,10 @@
         <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/layout/activity_pron.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/layout/activity_pron_category.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/layout/activity_splash.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/layout/activity_stt.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/layout/activity_tts.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/layout/activity_tutorial.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/layout/custom_dialog.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/layout/item_collection.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/layout/list_view_widget.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/layout/page1.xml" value="0.2875" />
-        <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/layout/page2.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/layout/page3.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/layout/page4.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/menu/menu.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/fenri/Desktop/CatchSound/app/src/main/res/menu/setting.xml" value="0.36614583333333334" />
         <entry key="..\:/androidProjects/CatchSound/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22083333333333333" />

@@ -2,6 +2,7 @@ package com.example.catchsound;
 
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,6 +18,9 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
@@ -50,6 +54,18 @@ public class SttActivity extends AppCompatActivity {
 
     FloatingActionButton change1;
 
+
+    FloatingActionButton fab_sub1;
+    FloatingActionButton fab_sub2;
+    FloatingActionButton fab_sub3;
+
+    TextView tv1_tts;
+    TextView tv1_db;
+    TextView tv1_pron;
+
+    private Animation fab_open, fab_close;
+
+    boolean isopen = false;
     Button voice_set;
 
 
@@ -78,9 +94,18 @@ public class SttActivity extends AppCompatActivity {
         fab_plus=(FloatingActionButton)findViewById(R.id.plus);
         fab_minus=(FloatingActionButton)findViewById(R.id.minus);
 
+        fab_sub1=(FloatingActionButton)findViewById(R.id.fabsub1);
+        fab_sub2=(FloatingActionButton)findViewById(R.id.fabsub2);
+        fab_sub3=(FloatingActionButton)findViewById(R.id.fabsub3);
+
         voice_set=(Button)findViewById(R.id.voice_set);
 
+        fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
 
+        tv1_tts=(TextView)findViewById(R.id.tv1_tts);
+        tv1_db=(TextView)findViewById(R.id.tv1_db);
+        tv1_pron=(TextView)findViewById(R.id.tv1_pron);
 
         intent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,getPackageName());
@@ -114,10 +139,64 @@ public class SttActivity extends AppCompatActivity {
         change1=findViewById(R.id.change1);
 
         change1.setOnClickListener(v -> {
-            Intent intent= new Intent(SttActivity.this, TtsActivity.class);
-            startActivity(intent);
+//            Intent intent= new Intent(SttActivity.this, TtsActivity.class);
+//            startActivity(intent);
+
+            if(isopen){
+
+
+                fab_sub1.startAnimation(fab_close);
+                fab_sub1.setClickable(false);
+                fab_sub2.startAnimation(fab_close);
+                fab_sub2.setClickable(false);
+                fab_sub3.startAnimation(fab_close);
+                fab_sub3.setClickable(false);
+
+                tv1_tts.startAnimation(fab_close);
+                tv1_db.startAnimation(fab_close);
+                tv1_pron.startAnimation(fab_close);
+                isopen=false;
+            }
+
+            else{
+
+
+                fab_sub1.startAnimation(fab_open);
+                fab_sub1.setClickable(true);
+                fab_sub2.startAnimation(fab_open);
+                fab_sub2.setClickable(true);
+                fab_sub3.startAnimation(fab_open);
+                fab_sub3.setClickable(true);
+
+                tv1_tts.startAnimation(fab_open);
+                tv1_db.startAnimation(fab_open);
+                tv1_pron.startAnimation(fab_open);
+                isopen=true;
+            }
+
         });
 
+        fab_sub1.setOnClickListener(v->{
+            Intent intent= new Intent(SttActivity.this, PronounceCategoryActivity.class);
+            startActivity(intent);
+
+
+
+        });
+
+        fab_sub2.setOnClickListener(v->{
+            Intent intent= new Intent(SttActivity.this, DBActivity.class);
+            startActivity(intent);
+
+
+        });
+
+        fab_sub3.setOnClickListener(v->{
+            Intent intent= new Intent(SttActivity.this, TtsActivity.class);
+            startActivity(intent);
+
+
+        });
         voice_set.setOnClickListener(v -> {
             final PopupMenu popupMenu = new PopupMenu(getApplicationContext(),v);
             getMenuInflater().inflate(R.menu.setting, popupMenu.getMenu());

@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -31,27 +31,99 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/change2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:src="@drawable/ic_baseline_hearing_24"
-            app:backgroundTint="#ffff80"
-            android:layout_margin="10dp"
-            app:maxImageSize="35dp"/>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabsub4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_marginTop="380dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginBottom="170dp"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_hearing_24"
+                android:visibility="invisible"
+                app:backgroundTint="#ffff80"
+                app:fabSize="mini" />
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabsub5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_marginBottom="120dp"
+                android:layout_marginLeft="12dp"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_star_24"
+                android:visibility="invisible"
+                app:backgroundTint="#ffff80"
+                app:fabSize="mini" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabsub6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_marginBottom="70dp"
+                android:layout_marginLeft="12dp"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_mic_24"
+                android:visibility="invisible"
+                app:backgroundTint="#ffff80"
+                app:fabSize="mini" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/change2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_baseline_keyboard_24"
+                app:backgroundTint="#ffff80"
+                app:maxImageSize="35dp" />
+
+            <TextView
+                android:id="@+id/tv2_stt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="395dp"
+                android:layout_marginLeft="70dp"
+                android:visibility="invisible"
+                android:text="음성을 텍스트로 보기" />
+
+            <TextView
+                android:id="@+id/tv2_db"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="445dp"
+                android:layout_marginLeft="70dp"
+                android:visibility="invisible"
+                android:text="자주 쓰는 말 모음" />
+
+            <TextView
+                android:id="@+id/tv2_pron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="495dp"
+                android:layout_marginLeft="70dp"
+                android:visibility="invisible"
+                android:text="발음 교정" />
+
+
+        </FrameLayout>
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 

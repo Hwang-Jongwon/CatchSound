@@ -17,9 +17,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center_vertical"
         android:paddingLeft="6dip"
+        android:background="@drawable/round_shape"
         android:minHeight="?android:attr/listPreferredItemHeight"
-        android:textColor="#FFFFFFFF"
-        android:background="@android:color/holo_orange_dark"
+        android:textColor="@color/black"
         android:textSize="13dp"
         />
 </LinearLayout>

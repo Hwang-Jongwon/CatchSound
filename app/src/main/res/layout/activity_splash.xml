@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/kotra_hope"
-        android:text="Catchsound"
+        android:text="CatchSound"
         android:textColor="#000000"
         android:textSize="55sp"
         android:layout_gravity="center"
