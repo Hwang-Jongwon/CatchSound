@@ -66,6 +66,7 @@ public class DBActivity extends AppCompatActivity {
     private boolean isopen = false;
     private Animation fab_open, fab_close;
     private long time = 0;
+    private int flag = 1;
 
     @Override
     public void onBackPressed() {
@@ -225,16 +226,23 @@ public class DBActivity extends AppCompatActivity {
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setSubmitButtonEnabled(true);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchContact(query);
+                if(flag == 1)
+                    searchContact(query);
+                else
+                    searchContactTag(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchContact(newText);
+                if(flag == 1)
+                    searchContact(newText);
+                else
+                    searchContactTag(newText);
                 return false;
             }
         });
@@ -271,12 +279,27 @@ public class DBActivity extends AppCompatActivity {
                 RecyclerView_main.setHasFixedSize(true);
                 RecyclerView_main.setAdapter(itemAdapter);
                 break;
+
+            case R.id.menu5:
+                flag = 1;
+                break;
+
+            case R.id.menu6:
+                flag = 0;
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void searchContact(String keyword) {
         todoItems = dbHelper.SearchList(keyword);
+        itemAdapter = new com.example.catchsound.nAdapter(todoItems, this);
+        RecyclerView_main.setHasFixedSize(true);
+        RecyclerView_main.setAdapter(itemAdapter);
+    }
+
+    private void searchContactTag(String keyword) {
+        todoItems = dbHelper.SearchTagList(keyword);
         itemAdapter = new com.example.catchsound.nAdapter(todoItems, this);
         RecyclerView_main.setHasFixedSize(true);
         RecyclerView_main.setAdapter(itemAdapter);

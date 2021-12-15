@@ -65,6 +65,7 @@
             android:background="@color/white"
             android:gravity="center"
             android:text=""
+            android:fontFamily="@font/nanum"
             android:textColor="@color/black"
             android:textSize="30dp" />
 

@@ -92,6 +92,22 @@ public class SttActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar() ;
         ab.hide();
 
+        SharedPreferences pref = getSharedPreferences("checkFirst", Activity.MODE_PRIVATE);
+        boolean checkFirst = pref.getBoolean("checkFirst", false);
+
+        // false일 경우 최초 실행
+        if(!checkFirst){
+            // 앱 최초 실행시 하고 싶은 작업
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean("checkFirst",true);
+            editor.apply();
+            finish();
+
+            Intent intent = new Intent(SttActivity.this, TutorialActivity.class);
+            startActivity(intent);
+
+        }
+
 
         if ( Build.VERSION.SDK_INT >= 23 ){
             // 퍼미션 체크
@@ -136,19 +152,12 @@ public class SttActivity extends AppCompatActivity {
 
         fab_plus.setOnClickListener(v -> {
             textView.setTextSize(Dimension.DP,textView.getTextSize()+5.0f);
-            mToast = Toast.makeText(SttActivity.this, "null", Toast.LENGTH_SHORT);
-            mToast.setText("텍스트 크기 +");
-            mToast.show();
-
             Log.e("plus", String.valueOf(textView.getTextSize()));
         });
 
         fab_minus.setOnClickListener(v -> {
 
             textView.setTextSize(Dimension.DP,textView.getTextSize()- 5.0f);
-            mToast = Toast.makeText(SttActivity.this, "null", Toast.LENGTH_SHORT);
-            mToast.setText("텍스트 크기 -");
-            mToast.show();
             Log.e("minus", String.valueOf(textView.getTextSize()));
         });
 
@@ -249,6 +258,13 @@ public class SttActivity extends AppCompatActivity {
 
 
                        dlg.show();
+                   }
+
+                   else if(item.getItemId() == R.id.tutorial)
+                   {
+                       Intent intent = new Intent(SttActivity.this, TutorialActivity.class);
+                       startActivity(intent);
+                       finish();
                    }
 
 

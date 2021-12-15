@@ -5,17 +5,30 @@
     <color name="dot_dark_screen2">#A5662D</color>
     <color name="dot_dark_screen3">#A5662D</color>
     <color name="dot_dark_screen4">#A5662D</color>
+    <color name="dot_dark_screen5">#A5662D</color>
+    <color name="dot_dark_screen6">#A5662D</color>
+    <color name="dot_dark_screen7">#A5662D</color>
+    <color name="dot_dark_screen8">#A5662D</color>
+
 
     <color name="dot_light_screen1">#FFCE70</color>
     <color name="dot_light_screen2">#FFCE70</color>
     <color name="dot_light_screen3">#FFCE70</color>
     <color name="dot_light_screen4">#FFCE70</color>
+    <color name="dot_light_screen5">#FFCE70</color>
+    <color name="dot_light_screen6">#FFCE70</color>
+    <color name="dot_light_screen7">#FFCE70</color>
+    <color name="dot_light_screen8">#FFCE70</color>
 
     <array name="array_dot_active">
         <item>@color/dot_light_screen1</item>
         <item>@color/dot_light_screen2</item>
         <item>@color/dot_light_screen3</item>
         <item>@color/dot_light_screen4</item>
+        <item>@color/dot_light_screen5</item>
+        <item>@color/dot_light_screen6</item>
+        <item>@color/dot_light_screen7</item>
+        <item>@color/dot_light_screen8</item>
     </array>
 
     <array name="array_dot_inactive">
@@ -23,6 +36,10 @@
         <item>@color/dot_dark_screen2</item>
         <item>@color/dot_dark_screen3</item>
         <item>@color/dot_dark_screen4</item>
+        <item>@color/dot_dark_screen5</item>
+        <item>@color/dot_dark_screen6</item>
+        <item>@color/dot_dark_screen7</item>
+        <item>@color/dot_dark_screen8</item>
     </array>
 
 </resources>

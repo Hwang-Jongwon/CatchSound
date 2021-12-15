@@ -162,6 +162,32 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    public ArrayList<TodoItem> SearchTagList(String keyword) {
+        ArrayList<TodoItem> arrayList = new ArrayList();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TodoList WHERE tag LIKE ?", new String[]{"%" + keyword + "%"});
+        if (cursor.getCount() != 0)
+            while (cursor.moveToNext()) {
+                int i = cursor.getInt(cursor.getColumnIndex("id"));
+                String str2 = cursor.getString(cursor.getColumnIndex("content"));
+                String str3 = cursor.getString(cursor.getColumnIndex("date"));
+                String flag = cursor.getString(cursor.getColumnIndex("flag"));
+                String tag = cursor.getString(cursor.getColumnIndex("tag"));
+                String use = cursor.getString(cursor.getColumnIndex("use"));
+                int star = cursor.getInt(cursor.getColumnIndex("star"));
+                TodoItem todoItem = new TodoItem();
+                todoItem.setId(i);
+                todoItem.setContent(str2);
+                todoItem.setDate(str3);
+                todoItem.setFlag(flag);
+                todoItem.setStar(star);
+                todoItem.setTag(tag);
+                todoItem.setUse(use);
+                arrayList.add(todoItem);
+            }
+        return arrayList;
+    }
+
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS TodoList(id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT NOT NULL, date TEXT NOT NULL, flag String NOT NULL, star INTEGER NOT NULL, tag String NOT NULL, use String NOT NULL)");
     }

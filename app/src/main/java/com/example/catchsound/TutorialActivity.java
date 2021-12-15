@@ -64,7 +64,11 @@ public class TutorialActivity extends AppCompatActivity {
                 R.layout.page1,
                 R.layout.page2,
                 R.layout.page3,
-                R.layout.page4
+                R.layout.page4,
+                R.layout.page5,
+                R.layout.page6,
+                R.layout.page7,
+                R.layout.page8
         };
 
         addBottomDots(0);
@@ -88,7 +92,7 @@ public class TutorialActivity extends AppCompatActivity {
                 if (current < layouts.length) {
                     viewPager.setCurrentItem(current);
                 } else {
-                    startActivity(new Intent(TutorialActivity.this, MainActivity.class));
+                    startActivity(new Intent(TutorialActivity.this, SttActivity.class));
                     finish();
                 }
             }
