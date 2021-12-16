@@ -68,7 +68,8 @@
                 android:fontFamily="@font/nanum"
                 android:gravity="center"
                 android:text="발음할 문장"
-                android:textSize="16sp" />
+                android:textStyle="bold"
+                android:textSize="18sp" />
 
             <ImageButton
                 android:id="@+id/btn_next"
@@ -81,6 +82,19 @@
                 app:tint="#FFF280" />
         </LinearLayout>
 
+        <RatingBar
+            android:layout_marginTop="5dp"
+            android:id="@+id/ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:layout_gravity="center"
+            android:isIndicator="true"
+            android:progressBackgroundTint="#D5D5D5"
+            android:progressTint="#FAF288"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            />
 
         <TextView
             android:id="@+id/review"
@@ -94,7 +108,7 @@
             android:fontFamily="@font/nanum"
             android:gravity="center"
             android:text=""
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 

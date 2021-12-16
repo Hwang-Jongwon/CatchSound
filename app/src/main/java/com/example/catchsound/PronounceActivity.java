@@ -18,6 +18,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.speech.RecognitionListener;
@@ -68,7 +69,7 @@ public class PronounceActivity extends AppCompatActivity {
     private int finalsentenceIdx;
 
     String result;
-
+    RatingBar ratingbar;
 
     int maxLenSpeech = 16000 * 45;
     byte[] speechData = new byte[maxLenSpeech * 2];
@@ -113,23 +114,11 @@ public class PronounceActivity extends AppCompatActivity {
                         String score = result.substring(score_idx + 7, score_idx + 12);
                         Double double_score = (Double) Double.parseDouble(score);
                         double_score = (Double) (Math.round(double_score * 10) / 10.0);
+                        Float float_score = double_score.floatValue();
 
-                        if (double_score < 1.0) {
-                            score = "☆☆☆☆☆";
-                        } else if (1.0 <= double_score && double_score < 2.0) {
-                            score = "★☆☆☆☆";
-                        } else if (2.0 <= double_score && double_score < 3.0) {
-                            score = "★★☆☆☆";
-                        } else if (3.0 <= double_score && double_score < 4.0) {
-                            score = "★★★☆☆";
-                        } else if (4.0 <= double_score && double_score < 4.5) {
-                            score = "★★★★☆";
-                        } else if (4.5 <= double_score && double_score <= 5.0) {
-                            score = "★★★★★";
-                        }
-
+                        ratingbar.setRating(float_score);
                         textMike.setText("");
-                        review.setText("발음 점수는 " + score + "!\n\n" + "인식된 문장 : " + recognized);
+                        review.setText("\n\"" + recognized + "\" 라고 들려요!");
                     }
 
                     sentence.setEnabled(true);
@@ -188,6 +177,7 @@ public class PronounceActivity extends AppCompatActivity {
         buttonBefore = (ImageButton) this.findViewById(R.id.btn_before);
         buttonNext = (ImageButton) this.findViewById(R.id.btn_next);
         sentence.setText(sentenceList.get(nowsentenceIdx));
+        ratingbar = (RatingBar) this.findViewById(R.id.ratingbar);
 
         //애니메이션 효과
         Animation anim_fadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.alpha);
@@ -203,6 +193,7 @@ public class PronounceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 review.setText("");
+                ratingbar.setRating(0);
                 if (nowsentenceIdx > 0) {
                     nowsentenceIdx -= 1;
                     sentence.setText(sentenceList.get(nowsentenceIdx));
@@ -215,6 +206,7 @@ public class PronounceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 review.setText("");
+                ratingbar.setRating(0);
                 if (nowsentenceIdx < finalsentenceIdx - 2) {
                     nowsentenceIdx++;
                     sentence.setText(sentenceList.get(nowsentenceIdx));
