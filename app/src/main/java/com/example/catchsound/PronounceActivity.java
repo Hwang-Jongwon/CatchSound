@@ -58,7 +58,6 @@ public class PronounceActivity extends AppCompatActivity {
     private static final String accessKey = "6e40005e-26a1-44df-8032-8d73501924fb";
     private static int MICROPHONE_PERMISSION_CODE = 100;
 
-    ImageButton buttonStart;
     TextView textMike;
     TextView sentence;
     TextView review;
@@ -91,7 +90,7 @@ public class PronounceActivity extends AppCompatActivity {
                 //녹음이 정상적으로 종료됨(버튼 눌렀거나, 시간 끝)
                 case 2:
                     textMike.setText(v);
-                    buttonStart.setEnabled(false);
+                    sentence.setEnabled(false);
                     break;
                 //녹음이 비정상적으로 종료됨(마이크 권한 필요 등등)
                 case 3:
@@ -100,7 +99,7 @@ public class PronounceActivity extends AppCompatActivity {
                 //인식이 비정상적으로 종료됨
                 case 4:
                     textMike.setText(v);
-                    buttonStart.setEnabled(true);
+                    sentence.setEnabled(true);
                     break;
                 //인식이 정상적으로 종료됨
                 case 5:
@@ -133,7 +132,7 @@ public class PronounceActivity extends AppCompatActivity {
                         review.setText("발음 점수는 " + score + "!\n\n" + "인식된 문장 : " + recognized);
                     }
 
-                    buttonStart.setEnabled(true);
+                    sentence.setEnabled(true);
                     //textResult.setText(result);
                     break;
             }
@@ -183,7 +182,6 @@ public class PronounceActivity extends AppCompatActivity {
             getMicrophonePermission();
         }
 
-        buttonStart = (ImageButton) this.findViewById(R.id.buttonStart);
         textMike = (TextView) this.findViewById(R.id.textResult);
         sentence = (TextView) this.findViewById(R.id.sentence);
         review = (TextView) this.findViewById(R.id.review);
@@ -228,7 +226,7 @@ public class PronounceActivity extends AppCompatActivity {
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 
-        buttonStart.setOnClickListener(new View.OnClickListener() {
+        sentence.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (isRecording) {
                     forceStop = true;
