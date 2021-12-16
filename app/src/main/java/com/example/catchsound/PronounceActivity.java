@@ -234,7 +234,7 @@ public class PronounceActivity extends AppCompatActivity {
                     try {
                         new Thread(new Runnable() {
                             public void run() {
-                                SendMessage("녹음 중..\n\n마이크를 한번 더 터치해 녹음을 멈추세요!", 1);
+                                SendMessage("녹음 중..\n\n문장을 한번 더 터치해 녹음을 멈추세요!", 1);
                                 try {
                                     recordSpeech();
                                     SendMessage("발음 분석중..", 2);

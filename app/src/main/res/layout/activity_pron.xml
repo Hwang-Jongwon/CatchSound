@@ -31,7 +31,7 @@
             android:gravity="center"
             android:inputType="textMultiLine"
             android:paddingTop="50dp"
-            android:text="마이크를 누른 후 문장을 말해보세요."
+            android:text="아래 문장을 누른 후 읽어보세요!"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
