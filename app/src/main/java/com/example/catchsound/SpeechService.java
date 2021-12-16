@@ -31,6 +31,11 @@ public class SpeechService extends Service implements TextToSpeech.OnInitListene
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+
+
+        /////
+
         handler.removeCallbacksAndMessages(null);
 
         word = intent.getStringExtra(SpeechService.EXTRA_WORD);
@@ -47,6 +52,8 @@ public class SpeechService extends Service implements TextToSpeech.OnInitListene
                 stopSelf();
             }
         }, 15*1000);
+
+
 
         return SpeechService.START_NOT_STICKY;
     }
@@ -73,6 +80,8 @@ public class SpeechService extends Service implements TextToSpeech.OnInitListene
 
     private void speak() {
         if (tts != null) {
+            tts.setPitch((float) 0.8);
+            tts.setSpeechRate((float) 1.1);
             tts.speak(word, TextToSpeech.QUEUE_FLUSH, null);
 
         }

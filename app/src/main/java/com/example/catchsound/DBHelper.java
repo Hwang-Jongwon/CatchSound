@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "catchsound.db";
 
-    private static final int DB_VERSION = 13;
+    private static final int DB_VERSION = 14;
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
