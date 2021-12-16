@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="140dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="0"
@@ -31,7 +31,7 @@
             android:inputType="textMultiLine"
             android:paddingTop="50dp"
             android:text="마이크를 누른 후 문장을 말해보세요."
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,15 +41,15 @@
             android:layout_width="390dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <Button
+            <ImageButton
+                android:src="@drawable/icons8_sort_left_48"
+                app:tint="#FFF280"
+                android:backgroundTint="@color/white"
                 android:id="@+id/btn_before"
                 android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:textColor="#000000"
-                android:text="이전"
-                android:textSize="12sp"/>
+                android:layout_weight="3" />
 
             <TextView
                 android:id="@+id/sentence"
@@ -64,18 +64,18 @@
                 android:fontFamily="@font/nanum"
                 android:gravity="center"
                 android:text="발음할 문장"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:background="@drawable/sentencetv_border"/>
 
-            <Button
+            <ImageButton
+                android:src="@drawable/icons8_sort_right_48"
+                app:tint="#FFF280"
+                android:backgroundTint="@color/white"
                 android:id="@+id/btn_next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:layout_weight="3"
-                android:textColor="#000000"
-                android:text="다음"
-                android:textSize="12sp"/>
+                android:layout_weight="3" />
         </LinearLayout>
 
 
@@ -90,7 +90,7 @@
             android:background="@android:color/background_light"
             android:fontFamily="@font/nanum"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:text="결과가 여기 표시됨"
             />
 
@@ -100,7 +100,7 @@
             android:id="@+id/buttonStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="150dp"
+            android:paddingTop="40dp"
             android:layout_margin="10dp"
             android:layout_weight="0"
             android:src="@drawable/microphone"

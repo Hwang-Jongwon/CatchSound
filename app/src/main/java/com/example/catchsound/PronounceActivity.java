@@ -62,8 +62,8 @@ public class PronounceActivity extends AppCompatActivity {
     TextView textMike;
     TextView sentence;
     TextView review;
-    Button buttonBefore;
-    Button buttonNext;
+    ImageButton buttonBefore;
+    ImageButton buttonNext;
     ArrayList<String> sentenceList;
     private int nowsentenceIdx = 0;
     private int finalsentenceIdx;
@@ -130,7 +130,7 @@ public class PronounceActivity extends AppCompatActivity {
                         }
 
                         textMike.setText("");
-                        review.setText("인식된 문장 : " + recognized + "\n" + score);
+                        review.setText("발음 점수는 " + score + "!\n\n" + "인식된 문장 : " + recognized);
                     }
 
                     buttonStart.setEnabled(true);
@@ -187,8 +187,8 @@ public class PronounceActivity extends AppCompatActivity {
         textMike = (TextView) this.findViewById(R.id.textResult);
         sentence = (TextView) this.findViewById(R.id.sentence);
         review = (TextView) this.findViewById(R.id.review);
-        buttonBefore = (Button) this.findViewById(R.id.btn_before);
-        buttonNext = (Button) this.findViewById(R.id.btn_next);
+        buttonBefore = (ImageButton) this.findViewById(R.id.btn_before);
+        buttonNext = (ImageButton) this.findViewById(R.id.btn_next);
         sentence.setText(sentenceList.get(nowsentenceIdx));
 
         //애니메이션 효과
@@ -204,6 +204,7 @@ public class PronounceActivity extends AppCompatActivity {
         buttonBefore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                review.setText("");
                 if (nowsentenceIdx > 0) {
                     nowsentenceIdx -= 1;
                     sentence.setText(sentenceList.get(nowsentenceIdx));
@@ -215,6 +216,7 @@ public class PronounceActivity extends AppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                review.setText("");
                 if (nowsentenceIdx < finalsentenceIdx - 2) {
                     nowsentenceIdx++;
                     sentence.setText(sentenceList.get(nowsentenceIdx));
@@ -234,7 +236,7 @@ public class PronounceActivity extends AppCompatActivity {
                     try {
                         new Thread(new Runnable() {
                             public void run() {
-                                SendMessage("녹음 중..\n마이크를 한번 더 터치해 녹음을 멈추세요!", 1);
+                                SendMessage("녹음 중..\n\n마이크를 한번 더 터치해 녹음을 멈추세요!", 1);
                                 try {
                                     recordSpeech();
                                     SendMessage("발음 분석중..", 2);
@@ -392,8 +394,7 @@ public class PronounceActivity extends AppCompatActivity {
             Workbook wb = Workbook.getWorkbook(is);
             Sheet sheet = wb.getSheet(0);
             if (sheet != null) {
-                int colTotal = sheet.getColumns(); //열의 수
-                int rowTotal = sheet.getColumn(colTotal - 1).length; //행의 수
+                int rowTotal = sheet.getColumn(colnum).length; //행의 수
                 finalsentenceIdx = rowTotal;
 
                 StringBuilder sb;
