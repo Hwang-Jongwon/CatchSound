@@ -183,8 +183,8 @@ public class nAdapter extends RecyclerView.Adapter<nAdapter.ItemViewHolder> {
                 else
                     Toast.makeText(context, "음성 재생중입니다!", Toast.LENGTH_SHORT).show();
 
-                tts.setPitch((float) 0.8);
-                tts.setSpeechRate((float) 0.9);
+                tts.setPitch((float) 1.0);
+                tts.setSpeechRate((float) 1.2);
                 tts.speak(item_Content.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "id1");
 
             });

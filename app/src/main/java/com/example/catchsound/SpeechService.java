@@ -80,8 +80,8 @@ public class SpeechService extends Service implements TextToSpeech.OnInitListene
 
     private void speak() {
         if (tts != null) {
-            tts.setPitch((float) 0.8);
-            tts.setSpeechRate((float) 1.1);
+            tts.setPitch((float) 1.0);
+            tts.setSpeechRate((float) 1.2);
             tts.speak(word, TextToSpeech.QUEUE_FLUSH, null);
 
         }

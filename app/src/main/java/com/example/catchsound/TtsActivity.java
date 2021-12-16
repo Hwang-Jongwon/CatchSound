@@ -154,8 +154,8 @@ public class TtsActivity extends Activity implements TextToSpeech.OnInitListener
         if(volumeControl.getStreamVolume(AudioManager.STREAM_MUSIC) == 0)
             Toast.makeText(this, "소리가 꺼져있어요!", Toast.LENGTH_SHORT).show();
 
-        tts.setPitch((float) 0.7);
-        tts.setSpeechRate((float) 0.9);
+        tts.setPitch((float) 1.0);
+        tts.setSpeechRate((float) 1.2);
 
         tts.speak(text,TextToSpeech.QUEUE_FLUSH,null,"id1");
     }
