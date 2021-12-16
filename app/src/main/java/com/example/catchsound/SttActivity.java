@@ -3,12 +3,14 @@ package com.example.catchsound;
 
 import android.Manifest;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
@@ -45,7 +47,8 @@ public class SttActivity extends AppCompatActivity {
 
     Intent intent;
     SpeechRecognizer mRecognizer;
-    Button sttBtn; TextView textView;
+    Button sttBtn;
+    TextView textView;
     final int PERMISSION = 1;
     FloatingActionButton fab_plus;
     FloatingActionButton fab_minus;
@@ -89,17 +92,17 @@ public class SttActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stt);
-        ActionBar ab = getSupportActionBar() ;
+        ActionBar ab = getSupportActionBar();
         ab.hide();
 
         SharedPreferences pref = getSharedPreferences("checkFirst", Activity.MODE_PRIVATE);
         boolean checkFirst = pref.getBoolean("checkFirst", false);
 
         // false일 경우 최초 실행
-        if(!checkFirst){
+        if (!checkFirst) {
             // 앱 최초 실행시 하고 싶은 작업
             SharedPreferences.Editor editor = pref.edit();
-            editor.putBoolean("checkFirst",true);
+            editor.putBoolean("checkFirst", true);
             editor.apply();
             finish();
 
@@ -109,10 +112,11 @@ public class SttActivity extends AppCompatActivity {
         }
 
 
-        if ( Build.VERSION.SDK_INT >= 23 ){
+        if (Build.VERSION.SDK_INT >= 23) {
             // 퍼미션 체크
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET,
-                    Manifest.permission.RECORD_AUDIO},PERMISSION); }
+                    Manifest.permission.RECORD_AUDIO}, PERMISSION);
+        }
 
         pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
         editor = pref.edit();
@@ -123,51 +127,51 @@ public class SttActivity extends AppCompatActivity {
         textView.setText(guide);
         sttBtn = (Button) findViewById(R.id.sttStart);
 
-        fab_plus=(FloatingActionButton)findViewById(R.id.plus);
-        fab_minus=(FloatingActionButton)findViewById(R.id.minus);
+        fab_plus = (FloatingActionButton) findViewById(R.id.plus);
+        fab_minus = (FloatingActionButton) findViewById(R.id.minus);
 
-        fab_sub1=(FloatingActionButton)findViewById(R.id.fabsub1);
-        fab_sub2=(FloatingActionButton)findViewById(R.id.fabsub2);
-        fab_sub3=(FloatingActionButton)findViewById(R.id.fabsub3);
+        fab_sub1 = (FloatingActionButton) findViewById(R.id.fabsub1);
+        fab_sub2 = (FloatingActionButton) findViewById(R.id.fabsub2);
+        fab_sub3 = (FloatingActionButton) findViewById(R.id.fabsub3);
 
-        voice_set=(Button)findViewById(R.id.voice_set);
+        voice_set = (Button) findViewById(R.id.voice_set);
 
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
 
-        tv1_tts=(TextView)findViewById(R.id.tv1_tts);
-        tv1_db=(TextView)findViewById(R.id.tv1_db);
-        tv1_pron=(TextView)findViewById(R.id.tv1_pron);
+        tv1_tts = (TextView) findViewById(R.id.tv1_tts);
+        tv1_db = (TextView) findViewById(R.id.tv1_db);
+        tv1_pron = (TextView) findViewById(R.id.tv1_pron);
 
-        intent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,getPackageName());
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"ko-KR");
+        intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getPackageName());
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR");
 
 
         sttBtn.setOnClickListener(v -> {
-            mRecognizer=SpeechRecognizer.createSpeechRecognizer(this);
+            mRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
             mRecognizer.setRecognitionListener(listener);
             mRecognizer.startListening(intent);
         });
 
         fab_plus.setOnClickListener(v -> {
-            textView.setTextSize(Dimension.DP,textView.getTextSize()+5.0f);
+            textView.setTextSize(Dimension.DP, textView.getTextSize() + 5.0f);
             Log.e("plus", String.valueOf(textView.getTextSize()));
         });
 
         fab_minus.setOnClickListener(v -> {
 
-            textView.setTextSize(Dimension.DP,textView.getTextSize()- 5.0f);
+            textView.setTextSize(Dimension.DP, textView.getTextSize() - 5.0f);
             Log.e("minus", String.valueOf(textView.getTextSize()));
         });
 
-        change1=findViewById(R.id.change1);
+        change1 = findViewById(R.id.change1);
 
         change1.setOnClickListener(v -> {
 //            Intent intent= new Intent(SttActivity.this, TtsActivity.class);
 //            startActivity(intent);
 
-            if(isopen){
+            if (isopen) {
 
 
                 fab_sub1.startAnimation(fab_close);
@@ -180,10 +184,8 @@ public class SttActivity extends AppCompatActivity {
                 tv1_tts.startAnimation(fab_close);
                 tv1_db.startAnimation(fab_close);
                 tv1_pron.startAnimation(fab_close);
-                isopen=false;
-            }
-
-            else{
+                isopen = false;
+            } else {
 
 
                 fab_sub1.startAnimation(fab_open);
@@ -196,77 +198,72 @@ public class SttActivity extends AppCompatActivity {
                 tv1_tts.startAnimation(fab_open);
                 tv1_db.startAnimation(fab_open);
                 tv1_pron.startAnimation(fab_open);
-                isopen=true;
+                isopen = true;
             }
 
         });
 
-        fab_sub1.setOnClickListener(v->{
-            Intent intent= new Intent(SttActivity.this, PronounceCategoryActivity.class);
-            startActivity(intent);
-
-
-
-        });
-
-        fab_sub2.setOnClickListener(v->{
-            Intent intent= new Intent(SttActivity.this, DBActivity.class);
+        fab_sub1.setOnClickListener(v -> {
+            Intent intent = new Intent(SttActivity.this, PronounceCategoryActivity.class);
             startActivity(intent);
 
 
         });
 
-        fab_sub3.setOnClickListener(v->{
-            Intent intent= new Intent(SttActivity.this, TtsActivity.class);
+        fab_sub2.setOnClickListener(v -> {
+            Intent intent = new Intent(SttActivity.this, DBActivity.class);
+            startActivity(intent);
+
+
+        });
+
+        fab_sub3.setOnClickListener(v -> {
+            Intent intent = new Intent(SttActivity.this, TtsActivity.class);
             startActivity(intent);
 
 
         });
         voice_set.setOnClickListener(v -> {
-            final PopupMenu popupMenu = new PopupMenu(getApplicationContext(),v);
+            final PopupMenu popupMenu = new PopupMenu(getApplicationContext(), v);
             getMenuInflater().inflate(R.menu.setting, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-                   if(item.getItemId()== R.id.set_message)
-                   {
-                       AlertDialog.Builder dlg = new AlertDialog.Builder(SttActivity.this);
-                       dlg.setTitle("기본메세지 변경");
-                       EditText et = new EditText(SttActivity.this);
-                       et.setText(guide);
-                       dlg.setView(et);
-
-                       dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                           @Override
-                           public void onClick(DialogInterface dialog, int which) {
-
-                           }
-                       });
-
-                       dlg.setPositiveButton("설정", new DialogInterface.OnClickListener() {
-
-                           @Override
-                           public void onClick(DialogInterface dialog, int which) {
-                               editor.putString("guide", et.getText().toString());
-                               editor.apply();
-                               Toast.makeText(getApplicationContext(), "변경 완료", Toast.LENGTH_SHORT).show();
-                               Intent intent = getIntent();
-                               finish();
-                               startActivity(intent);
-                           }
-                       });
+                    if (item.getItemId() == R.id.set_message) {
+                        AlertDialog.Builder dlg = new AlertDialog.Builder(SttActivity.this, R.style.Dialog);
+                        dlg.setTitle("기본메세지 변경");
+                        EditText et = new EditText(SttActivity.this);
+                        et.setText(guide);
+                        dlg.setView(et);
 
 
-                       dlg.show();
-                   }
+                        dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                   else if(item.getItemId() == R.id.tutorial)
-                   {
-                       Intent intent = new Intent(SttActivity.this, TutorialActivity.class);
-                       startActivity(intent);
-                       finish();
-                   }
+                            }
+                        });
 
+                        dlg.setPositiveButton("설정", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                editor.putString("guide", et.getText().toString());
+                                editor.apply();
+                                Toast.makeText(getApplicationContext(), "변경 완료", Toast.LENGTH_SHORT).show();
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
+                            }
+                        });
+
+                        dlg.show();
+
+                    } else if (item.getItemId() == R.id.tutorial) {
+                        Intent intent = new Intent(SttActivity.this, TutorialActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
 
 
                     return false;
@@ -278,10 +275,6 @@ public class SttActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
     private RecognitionListener listener = new RecognitionListener() {
         @Override
         public void onReadyForSpeech(Bundle params) {
@@ -289,15 +282,24 @@ public class SttActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBeginningOfSpeech() {}
+        public void onBeginningOfSpeech() {
+        }
+
         @Override
-        public void onRmsChanged(float rmsdB) {}
+        public void onRmsChanged(float rmsdB) {
+        }
+
         @Override
-        public void onBufferReceived(byte[] buffer) {}
+        public void onBufferReceived(byte[] buffer) {
+        }
+
         @Override
-        public void onEndOfSpeech() {}
+        public void onEndOfSpeech() {
+        }
+
         @Override
-        public void onError(int error) { String message;
+        public void onError(int error) {
+            String message;
 
             switch (error) {
                 case SpeechRecognizer.ERROR_AUDIO:
@@ -327,30 +329,31 @@ public class SttActivity extends AppCompatActivity {
                 case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
                     message = "말하는 시간초과";
                     break;
-                default: message = "알 수 없는 오류임";
+                default:
+                    message = "알 수 없는 오류임";
                     break;
             }
-            Toast.makeText(getApplicationContext(), "에러가 발생하였습니다. : " + message,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "에러가 발생하였습니다. : " + message, Toast.LENGTH_SHORT).show();
         }
-
-
-
-
-
-
 
 
         @Override
         public void onResults(Bundle results) {
             // 말을 하면 ArrayList에 단어를 넣고 textView에 단어를 이어줍니다.
             ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            for(int i = 0; i < matches.size() ; i++){ textView.setText(matches.get(i)); } }
-        @Override
-        public void onPartialResults(Bundle partialResults) {}
-        @Override
-        public void onEvent(int eventType, Bundle params) {}
-    };
+            for (int i = 0; i < matches.size(); i++) {
+                textView.setText(matches.get(i));
+            }
+        }
 
+        @Override
+        public void onPartialResults(Bundle partialResults) {
+        }
+
+        @Override
+        public void onEvent(int eventType, Bundle params) {
+        }
+    };
 
 
 }

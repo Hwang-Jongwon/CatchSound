@@ -80,7 +80,7 @@ public class TutorialActivity extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(TutorialActivity.this, MainActivity.class));
+                startActivity(new Intent(TutorialActivity.this, SttActivity.class));
                 finish();
             }
         });
